@@ -17,7 +17,7 @@ docker network create metricbeat
 docker-compose up -d kibana
 ```
 
-Kibana can be accessed from ```http://localhost:5601/```
+Kibana can be accessed from [http://localhost:5601/](http://localhost:5601/)
 
 ## Handy docker commands
 
