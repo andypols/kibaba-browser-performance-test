@@ -6,7 +6,8 @@ Using:
 
 | Name           | Version       |
 | -------------- | ------------- |
-| Elasticsearch  | 7.0.0         |
+| Elasticsearch  | 7.7.0         |
+| Kibana         | 7.7.0         |
 
 
 ``` bash

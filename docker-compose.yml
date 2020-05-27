@@ -1,44 +1,87 @@
-version: "2.2"
+version: '2.2'
 services:
-  # Used as the Metricbeat output - could create a cluster with more nodes
-  elasticsearch:
+  es01:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.7.0
-    container_name: metricbeat-elasticsearch
-    memswap_limit: 0
-    mem_limit: 2g
-    cap_add:
-      - IPC_LOCK
+    container_name: es01
     environment:
-      - cluster.name=docker-cluster
+      - node.name=es01
+      - cluster.name=es-docker-cluster
+      - discovery.seed_hosts=es02,es03
+      - cluster.initial_master_nodes=es01,es02,es03
       - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
     ulimits:
       memlock:
         soft: -1
         hard: -1
     volumes:
-      - ./docker/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
-
+      - data01:/usr/share/elasticsearch/data
     ports:
-      - 9222:9200
+      - 9200:9200
     networks:
-      - metricbeat
+      - elastic
 
-  # Used to analyse data sent to elasticsearch from Metricbeat.
-  # Metricbeat directly creates Dashbords in Kibana
-  kibana:
-    image: docker.elastic.co/kibana/kibana:7.7.0
-    container_name: metricbeat-kibana
+  es02:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.7.0
+    container_name: es02
+    environment:
+      - node.name=es02
+      - cluster.name=es-docker-cluster
+      - discovery.seed_hosts=es01,es03
+      - cluster.initial_master_nodes=es01,es02,es03
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
     volumes:
-      - ./docker/config/kibana.yml:/opt/kibana/config/kibana.yml:ro
-    depends_on:
-      - elasticsearch
+      - data02:/usr/share/elasticsearch/data
     ports:
-      - 5666:5601
+      - 9201:9201
     networks:
-      - metricbeat
+      - elastic
+
+  es03:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.7.0
+    container_name: es03
+    environment:
+      - node.name=es03
+      - cluster.name=es-docker-cluster
+      - discovery.seed_hosts=es01,es02
+      - cluster.initial_master_nodes=es01,es02,es03
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - data03:/usr/share/elasticsearch/data
+    ports:
+      - 9202:9202
+    networks:
+      - elastic
+
+  kib01:
+    image: docker.elastic.co/kibana/kibana:7.7.0
+    container_name: kib01
+    ports:
+      - 5601:5601
+    environment:
+      ELASTICSEARCH_URL: http://es01:9200
+      ELASTICSEARCH_HOSTS: http://es01:9200
+    networks:
+      - elastic
+
+volumes:
+  data01:
+    driver: local
+  data02:
+    driver: local
+  data03:
+    driver: local
 
 networks:
-  metricbeat:
-    external:
-      name: metricbeat
+  elastic:
+    driver: bridge
