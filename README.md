@@ -8,9 +8,10 @@ Using:
 | ------------------------------------------------------- | ------------- |
 | [Elasticsearch](https://www.elastic.co/elasticsearch/)  | 7.7.0         |
 | [Kibana](https://www.elastic.co/kibana)                 | 7.7.0         |
+| [Metricbeat](https://www.elastic.co/beats/metricbeat)   | 7.7.0         |
 
 
-## Spin up Kibaba
+## Spin up Kibana
  
 ``` bash
 docker network create metricbeat
