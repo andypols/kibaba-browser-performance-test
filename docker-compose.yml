@@ -1,0 +1,44 @@
+version: "2.2"
+services:
+  # Used as the Metricbeat output - could create a cluster with more nodes
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.7.0
+    container_name: metricbeat-elasticsearch
+    memswap_limit: 0
+    mem_limit: 2g
+    cap_add:
+      - IPC_LOCK
+    environment:
+      - cluster.name=docker-cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - ./docker/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
+
+    ports:
+      - 9222:9200
+    networks:
+      - metricbeat
+
+  # Used to analyse data sent to elasticsearch from Metricbeat.
+  # Metricbeat directly creates Dashbords in Kibana
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.7.0
+    container_name: metricbeat-kibana
+    volumes:
+      - ./docker/config/kibana.yml:/opt/kibana/config/kibana.yml:ro
+    depends_on:
+      - elasticsearch
+    ports:
+      - 5666:5601
+    networks:
+      - metricbeat
+
+networks:
+  metricbeat:
+    external:
+      name: metricbeat
