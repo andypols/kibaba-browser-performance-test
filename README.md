@@ -4,12 +4,14 @@ Experiment to use elastic beats to monitor chrome browser performance
 
 Using:
 
-| Name           | Version       |
-| -------------- | ------------- |
-| Elasticsearch  | 7.7.0         |
-| Kibana         | 7.7.0         |
+| Name                                                    | Version       |
+| ------------------------------------------------------- | ------------- |
+| [Elasticsearch](https://www.elastic.co/elasticsearch/)  | 7.7.0         |
+| [Kibana](https://www.elastic.co/kibana)                 | 7.7.0         |
 
 
+## Spin up Kibaba
+ 
 ``` bash
 docker network create metricbeat
 docker-compose up -d kibana
