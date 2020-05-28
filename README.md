@@ -31,3 +31,4 @@ Kibana can be accessed from [http://localhost:5601/](http://localhost:5601/)
 ## Refs
 
 * https://github.com/ypereirareis/docker-metricbeat-example - inspired by 
+* https://github.com/stephen-fox/chrome-docker
