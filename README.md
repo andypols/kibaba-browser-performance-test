@@ -26,6 +26,7 @@ Kibana can be accessed from [http://localhost:5601/](http://localhost:5601/)
 * `docker rm $(docker ps -aq -f status=exited)` ~ Remove all your stopped containers
 * `docker rm $(docker ps -a -q)` ~ remove all containers
 * `docker volume ls` ~ view all volumes
+* `docker volume prune` ~ Remove unused volumes
 
 ## Refs
 
