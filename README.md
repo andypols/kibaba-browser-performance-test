@@ -1,8 +1,9 @@
 # kibaba-browser-performance-test
 
-Experiment to use elastic beats to monitor chrome browser performance
+Experiment to use elastic beats to monitor chrome browser performance.
 
-Using:
+Contains a dockerised version of Kibana `7.7.0` and a chrome browser extension to 
+extract cpu, memory and network performance that sends the data to Kibana.
 
 | Name                                                    | Version       |
 | ------------------------------------------------------- | ------------- |
@@ -32,3 +33,4 @@ Kibana can be accessed from [http://localhost:5601/](http://localhost:5601/)
 * https://github.com/stephen-fox/chrome-docker
 * https://www.elastic.co/guide/en/elastic-stack-get-started/current/get-started-docker.html
 * https://github.com/pawankt/processbeat
+* https://developer.chrome.com/extensions/api_index
