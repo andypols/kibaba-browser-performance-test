@@ -1,7 +1,7 @@
 {
-  "name": "Getting Started Example",
+  "name": "Kibana Chrome Performance Beat",
   "version": "1.0",
-  "description": "Build an Extension!",
+  "description": "Sends cpu, memory and network stats to Kibana for application performance testing",
   "permissions": ["activeTab", "declarativeContent", "storage", "system.cpu"],
   "options_page": "options.html",
   "background": {
