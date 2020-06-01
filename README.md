@@ -18,6 +18,11 @@ docker-compose up
 
 Kibana can be accessed from [http://localhost:5601/](http://localhost:5601/)
 
+## Spin up MetricBeat
+
+Currently also running ```./metricbeat run``` with docker module enabled as would like to emulate that style of metric dashboard.
+
+
 ## Handy docker commands
 
 * `docker ps -aq -f status=exited` ~ list all your stopped containers using
