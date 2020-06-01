@@ -13,9 +13,18 @@ chrome.runtime.onInstalled.addListener(function() {
     console.log('The color is green.');
   });
 
-  chrome.system.cpu.getInfo(function(info) {
-    console.log(info)
-  })
+  function postStats() {
+    chrome.system.cpu.getInfo(function(cpuInfo) {
+      let cpu = {}
+      for(let i = 0; i < cpuInfo.numOfProcessors; i++) {
+        cpu[i] = cpuInfo.processors[i].usage;
+      }
+
+      console.log('Sending data to kibana', {cpu})
+    })
+  }
+
+  window.setInterval(postStats, 5000);
 
   chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
     chrome.declarativeContent.onPageChanged.addRules([{
