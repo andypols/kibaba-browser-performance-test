@@ -9,7 +9,7 @@
 // * docs for adding extension
 
 /*
-{"index":{"_index":"logstash-2015.05.18"}}
+{"index":{"_index":"browser-cpu"}}
 {
     "@timestamp": "2020-06-01T18:45:35.676Z",
     "browser": "Andy's Chrome",
@@ -27,6 +27,18 @@
     }
 }
 */
+
+window.post = function(url, data) {
+  return fetch(url, {
+    method: 'POST',
+    body: data,
+    mode: 'cors',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    }
+  });
+}
 
 chrome.runtime.onInstalled.addListener(function() {
   chrome.storage.sync.set({color: '#3aa757'}, function() {
@@ -52,7 +64,10 @@ chrome.runtime.onInstalled.addListener(function() {
         cpu: {core: core}
       }
 
-      console.log(cpuData)
+      post('http://localhost:9200/_bulk', `{"index":{"_index":"browser-cpu"}\n${JSON.stringify(cpuData)}\n`)
+        .catch((err => {
+          console.log("Failed to send data:", err)
+        }));
     })
   }
 

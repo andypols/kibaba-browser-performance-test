@@ -2,7 +2,13 @@
   "name": "Kibana Chrome Performance Beat",
   "version": "1.0",
   "description": "Sends cpu, memory and network stats to Kibana for application performance testing",
-  "permissions": ["activeTab", "declarativeContent", "storage", "system.cpu"],
+  "permissions": [
+    "activeTab",
+    "declarativeContent",
+    "storage",
+    "system.cpu",
+    "http://localhost/"
+  ],
   "options_page": "options.html",
   "background": {
     "scripts": ["background.js"],
