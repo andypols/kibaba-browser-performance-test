@@ -2,7 +2,7 @@
 
 An experiment using Kibana to monitor Chrome browser performance as part of application testing.
 
-Contains a dockerised version of Kibana `7.7.0` and a chrome browser extension that sends cpu, memory and network data to Kibana.
+Contains a dockerised version of [Kibana 7.7.0](https://www.elastic.co/kibana) and a chrome browser extension that sends cpu, memory and network data to Kibana.
 
 
 ## 1. Spin up Kibana
