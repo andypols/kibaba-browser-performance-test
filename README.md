@@ -19,25 +19,7 @@ Elastic can be accessed from [http://localhost:9200/](http://localhost:9200/)
 
 Before we can send the performance data to Elasticsearch, we must set up the field [mappings](https://www.elastic.co/guide/en/elasticsearch/reference/7.7/mapping.html).
 
-Not sure we do...
-
-```
-curl -X PUT "localhost:9200/browser-performance?pretty" -H 'Content-Type: application/json' -d'
-{
-  "mappings": {
-    "properties": {
-      "geo": {
-        "properties": {
-          "coordinates": {
-            "type": "geo_point"
-          }
-        }
-      }
-    }
-  }
-}
-'
-```
+TODO
 
 ## 3 Configure the Chrome Extension
 
