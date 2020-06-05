@@ -25,14 +25,20 @@ TODO
 
 The chrome-extension must have permission to post to Kibana.  It's currently configured to post to ```http://localhost/``` in the extensions ```manifest.json```. Change this if you run kibana on a different server.
 
-Build the plugin:
+Build the plugin (into ```dist``` in the ```chrome/extension``` folder):
 
 ```bash
 cd chrome
 yarn start 
 ``` 
 
+Then:
 
+* Vist ```chrome://extensions/``` in your browser.  
+* Toggle the ```Developer mode``` switch on the top right-hand-side.
+* Click the ```Load unpacked``` button and and select the ```chrome/extension``` folder.
+
+You should see the ```Kibana system pump (beat)``` extension and the CPU activity extension icon at the top. 
 
 ## Handy docker commands
 

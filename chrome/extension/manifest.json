@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Kibana system pump (beat)",
-  "version": "1.5.1",
+  "version": "0.0.1",
   "description": "Send system status like CPU, memory to Kibana",
   "homepage_url": "https://github.com/andypols/kibana-browser-performance-test",
   "offline_enabled": true,
