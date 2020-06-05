@@ -63,13 +63,5 @@ and the CPU activity extension icon at the top.
 
 ## Refs
 
-* https://github.com/ypereirareis/docker-metricbeat-example - inspired by 
-* https://github.com/stephen-fox/chrome-docker
-* https://www.elastic.co/guide/en/elastic-stack-get-started/current/get-started-docker.html
-* https://github.com/pawankt/processbeat
-* https://developer.chrome.com/extensions/api_index
-* https://developer.chrome.com/extensions/getstarted - info on loading extension
-* https://github.com/beaufortfrancois/cog-chrome-app/blob/master/src/main.js
-* https://gist.github.com/fletcherist/69a396df380355e49695ecb2fa71e84f
 * https://www.elastic.co/guide/en/kibana/current/tutorial-build-dashboard.html
 * https://www.elastic.co/guide/en/kibana/current/tutorial-discovering.html
