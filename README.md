@@ -1,6 +1,6 @@
 # Kibana browser performance test
 
-An experiment using Kibana to monitor Chrome browser performance as part of application testing.
+An experiment using Kibana to monitor Chrome browser performance as part of application testing. The extension based on the [system monitor chrome extension](https://chrome.google.com/webstore/detail/system-monitor/ecmlflnkenbdjfocclindonmigndecla)
 
 Contains a dockerised version of [Kibana 7.7.0](https://www.elastic.co/kibana) and a chrome browser extension that sends cpu, memory and network data to Kibana.
 
@@ -21,9 +21,17 @@ Before we can send the performance data to Elasticsearch, we must set up the fie
 
 TODO
 
-## 3 Configure the Chrome Extension
+## 3 Add Chrome Extension to Chrome
 
 The chrome-extension must have permission to post to Kibana.  It's currently configured to post to ```http://localhost/``` in the extensions ```manifest.json```. Change this if you run kibana on a different server.
+
+Build the plugin:
+
+```bash
+cd chrome
+yarn start 
+``` 
+
 
 ## Handy docker commands
 
