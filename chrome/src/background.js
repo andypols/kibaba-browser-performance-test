@@ -11,17 +11,25 @@ window.post = function(url, data) {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     }
+  }).catch((err => {
+    console.log("Failed to send data:", err);
+  }));
+}
+
+const activityIcon = new ActivityIcon();
+
+function updateIcon(browserData) {
+  const idle = browserData.cpu.idlePct / 100;
+
+  chrome.browserAction.setTitle({
+    title: `Usage: ${(100 * (1 - idle)).toFixed(0)}%`
+  });
+
+  activityIcon.update(idle);
+  chrome.browserAction.setIcon({
+    imageData: activityIcon.getImageData()
   });
 }
-
-const colourConfig = {
-  cpu: {
-    border: '#1874cd',
-    background: '#4876ff',
-  }
-}
-
-const activityIcon = new ActivityIcon(colourConfig.cpu);
 
 getSystemInfo(({cpu: {usage}}) => {
   const totals = usage.reduce((acc, core) => {
@@ -43,18 +51,6 @@ getSystemInfo(({cpu: {usage}}) => {
     }
   };
 
-  post(`${config.elasticIndexUrl}/_bulk`, `{"index":{"_index":"browser-data"}\n${JSON.stringify(browserData)}\n`)
-    .catch((err => {
-      console.log("Failed to send data:", err)
-    }));
-
-  const idle = browserData.cpu.idlePct / 100;
-
-  chrome.browserAction.setTitle({
-    title: `Usage: ${(100 * (1 - idle)).toFixed(0)}%`
-  })
-  activityIcon.update(idle);
-  chrome.browserAction.setIcon({
-    imageData: activityIcon.getImageData()
-  })
+  post(`${config.elasticIndexUrl}/_bulk`, `{"index":{"_index":"browser-data"}\n${JSON.stringify(browserData)}\n`);
+  updateIcon(browserData);
 })

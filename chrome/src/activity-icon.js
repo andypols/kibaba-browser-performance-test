@@ -1,9 +1,12 @@
 const ICON_SIZE = 19;
 const BORDER_WIDTH = 2;
-
+const COLOUR = {
+  border: '#1874cd',
+  background: '#4876ff',
+}
 
 // 3 => [1, 1, 1]
-function fill(count) {
+const fillWithOnes = (count) => {
   const arr = []
   for(let i = 0; i < count; i += 1) {
     arr.push(1)
@@ -12,13 +15,12 @@ function fill(count) {
 }
 
 export default class ActivityIcon {
-  constructor(colour) {
+  constructor() {
     const canvas = document.createElement('canvas')
     canvas.width = ICON_SIZE
     canvas.height = ICON_SIZE
     this.ctx = canvas.getContext('2d')
-    this.colour = colour;
-    this.cpuIdleArray = fill(ICON_SIZE);
+    this.cpuIdleArray = fillWithOnes(ICON_SIZE);
   }
 
   clear() {
@@ -33,7 +35,7 @@ export default class ActivityIcon {
     this.ctx.lineTo(ICON_SIZE, 0);
     this.ctx.closePath();
     this.ctx.lineWidth = BORDER_WIDTH;
-    this.ctx.strokeStyle = this.colour.border;
+    this.ctx.strokeStyle = COLOUR.border;
     this.ctx.stroke();
   }
 
@@ -45,7 +47,7 @@ export default class ActivityIcon {
     })
     this.ctx.lineTo(ICON_SIZE, ICON_SIZE);
     this.ctx.lineWidth = 2;
-    this.ctx.fillStyle = this.colour.background;
+    this.ctx.fillStyle = COLOUR.background;
     this.ctx.fill();
   }
 
@@ -61,4 +63,4 @@ export default class ActivityIcon {
   getImageData() {
     return this.ctx.getImageData(0, 0, ICON_SIZE, ICON_SIZE);
   }
-}
+};
