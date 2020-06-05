@@ -50,7 +50,6 @@ getSystemInfo(({cpu: {usage}}) => {
 
   const idle = browserData.cpu.idlePct / 100;
 
-
   chrome.browserAction.setTitle({
     title: `Usage: ${(100 * (1 - idle)).toFixed(0)}%`
   })
