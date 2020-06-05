@@ -23,7 +23,10 @@ TODO
 
 ## 3 Add Chrome Extension to Chrome
 
-The chrome-extension must have permission to post to Kibana.  It's currently configured to post to ```http://localhost/``` in the extensions ```manifest.json```. Change this if you run kibana on a different server.
+It's currently configured to post to elasticsearch at ```http://localhost/``` in the ```config.js```.
+
+The chrome-extension must have permission to post to Kibana. If you change config to point to a different, you must update the permissions in the ```manifest.json```.
+
 
 Build the plugin (into ```dist``` in the ```chrome/extension``` folder):
 
@@ -38,7 +41,13 @@ Then:
 * Toggle the ```Developer mode``` switch on the top right-hand-side.
 * Click the ```Load unpacked``` button and and select the ```chrome/extension``` folder.
 
-You should see the ```Kibana system pump (beat)``` extension and the CPU activity extension icon at the top. 
+You should see the ```Kibana system pump (beat)``` extension:
+ 
+![ext](./assets/extension.png)
+
+ and the CPU activity extension icon at the top. 
+
+![ext](./assets/icon.png)
 
 ## Handy docker commands
 
