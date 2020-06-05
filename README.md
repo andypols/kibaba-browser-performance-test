@@ -19,7 +19,53 @@ Elastic can be accessed from [http://localhost:9200/](http://localhost:9200/)
 
 Before we can send the performance data to Elasticsearch, we must set up the field [mappings](https://www.elastic.co/guide/en/elasticsearch/reference/7.7/mapping.html).
 
-TODO
+
+```
+curl -X PUT 'localhost:9200/browser-data?pretty' -H 'Content-Type: application/json' -d'
+{
+  "mappings": {
+    "dynamic_templates": [
+      {
+        "unindexed_longs": {
+          "match_mapping_type": "long",
+          "mapping": {
+            "type": "long",
+            "index": false
+          }
+        }
+      },
+      {
+        "unindexed_doubles": {
+          "match_mapping_type": "double",
+          "mapping": {
+            "type": "float",
+            "index": false
+          }
+        }
+      }
+    ],
+    "properties": {
+      "@timestamp": {
+        "type": "date",
+        "doc_values": true
+      }
+    }
+  }
+}
+'
+```
+
+And create an index pattern based on the timestamp.
+
+```
+curl -X POST "http://localhost:5601/api/saved_objects/index-pattern/performance_index_pattern" -H "kbn-xsrf:true" -H 'Content-Type: application/json' -d'
+{
+    "attributes": {
+        "title":"browser-data*", 
+        "timeFieldName":"@timestamp"
+    }
+}'
+```
 
 ## 3 Add Chrome Extension to Chrome
 
