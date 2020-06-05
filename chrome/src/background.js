@@ -1,5 +1,7 @@
 import {getSystemInfo} from './utils';
 import ActivityIcon from './activity-icon';
+import config from './config';
+
 const ICON_SIZE = 19;
 const BORDER_WIDTH = 2;
 
@@ -40,25 +42,20 @@ getSystemInfo(({cpu: {usage}}) => {
 
   const totals = usage.reduce((acc, core) => {
     return {
-      i: acc.i + core.idle / core.total,
-      idle: acc.idle + core.idle,
-      user: acc.user + core.user,
-      total: acc.total + core.total,
-      kernel: acc.kernel + core.kernel
+      idle: acc.idle + core.idle / core.total,
+      user: acc.user + core.user / core.total,
+      total: acc.total + core.total / core.total,
+      kernel: acc.kernel + core.kernel / core.total,
     }
   }, {i: 0, idle: 0, total: 0, kernel: 0, user: 0})
 
   const browserData = {
     '@timestamp': new Date().toISOString(),
-    browser: "Andy's Chrome",
+    browser: config.browserName,
     cpu: {
-      totalValue: totals.total,
-      idleValue: totals.idle,
-      idlePct: (totals.idle / totals.total * 100).toFixed(0),
-      kernelValue: totals.kernel,
-      kernelPct:(totals.kernel / totals.total * 100).toFixed(0),
-      userValue: totals.user,
-      userPct: (totals.user / totals.total * 100).toFixed(0)
+      idlePct: (totals.idle / usage.length) * 100,
+      kernelPct:(totals.kernel / usage.length) * 100,
+      userPct:(totals.user / usage.length) * 100
     }
   };
 
@@ -67,7 +64,7 @@ getSystemInfo(({cpu: {usage}}) => {
   //         console.log("Failed to send data:", err)
   //       }));
 
-  console.log({idle, cpu: ((browserData.cpu.idleValue / browserData.cpu.totalValue) * 100) / usage.length, i: totals.i/ usage.length})
+  console.log(browserData)
 
   cpuIdleArray.push(idle)
   cpuIdleArray.shift();
