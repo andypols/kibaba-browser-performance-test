@@ -7,3 +7,5 @@
 *.iml
 out
 gen
+/chrome/node_modules/
+/chrome/extension/dist/
