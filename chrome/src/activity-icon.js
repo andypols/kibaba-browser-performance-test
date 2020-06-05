@@ -11,7 +11,7 @@ function fill(count) {
   return arr
 }
 
-export const cpuIdleArray = fill(ICON_SIZE);
+const cpuIdleArray = fill(ICON_SIZE);
 
 export default class ActivityIcon {
   constructor(colour) {
@@ -50,7 +50,10 @@ export default class ActivityIcon {
     this.ctx.fill();
   }
 
-  update(cpuIdleArray) {
+  update(idle) {
+    cpuIdleArray.push(idle);
+    cpuIdleArray.shift();
+
     this.clear();
     this.drawBackground(cpuIdleArray);
     this.drawBorder();

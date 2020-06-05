@@ -1,5 +1,5 @@
 import {getSystemInfo} from './utils';
-import ActivityIcon, {cpuIdleArray} from './activity-icon';
+import ActivityIcon from './activity-icon';
 import config from './config';
 
 window.post = function(url, data) {
@@ -49,13 +49,12 @@ getSystemInfo(({cpu: {usage}}) => {
     }));
 
   const idle = browserData.cpu.idlePct / 100;
-  cpuIdleArray.push(idle);
-  cpuIdleArray.shift();
+
 
   chrome.browserAction.setTitle({
     title: `Usage: ${(100 * (1 - idle)).toFixed(0)}%`
   })
-  activityIcon.update(cpuIdleArray);
+  activityIcon.update(idle);
   chrome.browserAction.setIcon({
     imageData: activityIcon.getImageData()
   })
