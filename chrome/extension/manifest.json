@@ -6,9 +6,16 @@
   "homepage_url": "https://github.com/andypols/kibana-browser-performance-test",
   "offline_enabled": true,
   "background": {
-    "scripts": ["dist/background.js"]
+    "scripts": [
+      "dist/background.js"
+    ]
   },
-  "permissions": ["system.cpu", "system.memory", "system.storage", "storage"],
+  "permissions": [
+    "system.cpu",
+    "system.memory",
+    "storage",
+    "http://localhost/"
+  ],
   "browser_action": {
     "default_popup": "dist/popup.html"
   },

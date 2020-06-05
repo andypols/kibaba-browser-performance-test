@@ -38,8 +38,6 @@ const cpuIdleArray = fill(ICON_SIZE);
 const activityIcon = new ActivityIcon(colourConfig.cpu);
 
 getSystemInfo(({cpu: {usage}}) => {
-  const idle = usage.reduce((a, b) => a + b.idle / b.total, 0) / usage.length;
-
   const totals = usage.reduce((acc, core) => {
     return {
       idle: acc.idle + core.idle / core.total,
@@ -47,30 +45,29 @@ getSystemInfo(({cpu: {usage}}) => {
       total: acc.total + core.total / core.total,
       kernel: acc.kernel + core.kernel / core.total,
     }
-  }, {i: 0, idle: 0, total: 0, kernel: 0, user: 0})
+  }, {idle: 0, user: 0, total: 0, kernel: 0})
 
   const browserData = {
     '@timestamp': new Date().toISOString(),
     browser: config.browserName,
     cpu: {
       idlePct: (totals.idle / usage.length) * 100,
-      kernelPct:(totals.kernel / usage.length) * 100,
-      userPct:(totals.user / usage.length) * 100
+      kernelPct: (totals.kernel / usage.length) * 100,
+      userPct: (totals.user / usage.length) * 100
     }
   };
 
-  // post('http://localhost:9200/_bulk', `{"index":{"_index":"browser-data"}\n${JSON.stringify(browserData)}\n`)
-  //       .catch((err => {
-  //         console.log("Failed to send data:", err)
-  //       }));
+  post(`${config.elasticIndexUrl}/_bulk`, `{"index":{"_index":"browser-data"}\n${JSON.stringify(browserData)}\n`)
+    .catch((err => {
+      console.log("Failed to send data:", err)
+    }));
 
-  console.log(browserData)
-
-  cpuIdleArray.push(idle)
+  const idle = browserData.cpu.idlePct / 100;
+  cpuIdleArray.push(idle);
   cpuIdleArray.shift();
 
   chrome.browserAction.setTitle({
-    title: `Usage: ${(100 * (1 - browserData.cpu.idlePct)).toFixed(0)}%`
+    title: `Usage: ${(100 * (1 - idle)).toFixed(0)}%`
   })
   activityIcon.update(cpuIdleArray);
   chrome.browserAction.setIcon({
