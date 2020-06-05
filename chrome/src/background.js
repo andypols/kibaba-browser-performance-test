@@ -34,9 +34,9 @@ function updateIcon(browserData) {
 getSystemInfo(({cpu: {usage}}) => {
   const totals = usage.reduce((acc, core) => {
     return {
+      total: acc.total + core.total,
       idle: acc.idle + core.idle / core.total,
       user: acc.user + core.user / core.total,
-      total: acc.total + core.total / core.total,
       kernel: acc.kernel + core.kernel / core.total,
     }
   }, {idle: 0, user: 0, total: 0, kernel: 0})
