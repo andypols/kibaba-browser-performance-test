@@ -23,10 +23,9 @@ TODO
 
 ## 3 Add Chrome Extension to Chrome
 
-It's currently configured to post to elasticsearch at ```http://localhost/``` in the ```config.js```.
+It's currently configured to post to elasticsearch at ```http://localhost/``` in the ```config.js```.  You can also change the frequency that data is sent to elastic and the name that appears on the Kibana dashboard inside the ```config.js```.  
 
 The chrome-extension must have permission to post to Kibana. If you change config to point to a different, you must update the permissions in the ```manifest.json```.
-
 
 Build the plugin (into ```dist``` in the ```chrome/extension``` folder):
 
@@ -45,7 +44,7 @@ You should see the ```Kibana system pump (beat)``` extension:
  
 ![ext](./assets/extension.png)
 
- and the CPU activity extension icon at the top. 
+and the CPU activity extension icon at the top. 
 
 ![ext](./assets/icon.png)
 
