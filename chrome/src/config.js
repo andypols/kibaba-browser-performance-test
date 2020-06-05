@@ -1,4 +1,5 @@
 export default {
   name: "Andy's Browser",
-  elasticIndexUrl: ''
+  elasticIndexUrl: '',
+  sendEveryMs: 1000
 }

@@ -1,4 +1,5 @@
-const TIMEOUT = 1000
+import config from './config';
+
 
 function getCpuUsage(processors, processorsOld) {
   const usage = []
@@ -43,7 +44,7 @@ export async function getSystemInfo(cb, processorsOld = []) {
   if (storage) data.storage = { storage }
 
   cb(data)
-  setTimeout(() => getSystemInfo(cb, processors), TIMEOUT)
+  setTimeout(() => getSystemInfo(cb, processors), config.sendEveryMs);
 }
 
 export const storage = {

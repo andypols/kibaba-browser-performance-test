@@ -3,6 +3,19 @@ import ActivityIcon from './activity-icon';
 const ICON_SIZE = 19;
 const BORDER_WIDTH = 2;
 
+window.post = function(url, data) {
+  return fetch(url, {
+    method: 'POST',
+    body: data,
+    mode: 'cors',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    }
+  });
+}
+
+
 const colourConfig = {
   cpu: {
     border: '#1874cd',
@@ -27,7 +40,7 @@ getSystemInfo(({cpu: {usage}}) => {
 
   const totals = usage.reduce((acc, core) => {
     return {
-      i: acc.idle + core.idle / core.total,
+      i: acc.i + core.idle / core.total,
       idle: acc.idle + core.idle,
       user: acc.user + core.user,
       total: acc.total + core.total,
@@ -35,7 +48,7 @@ getSystemInfo(({cpu: {usage}}) => {
     }
   }, {i: 0, idle: 0, total: 0, kernel: 0, user: 0})
 
-  const send = {
+  const browserData = {
     '@timestamp': new Date().toISOString(),
     browser: "Andy's Chrome",
     cpu: {
@@ -49,13 +62,18 @@ getSystemInfo(({cpu: {usage}}) => {
     }
   };
 
-  console.log({idle, cpu: ((send.cpu.idleValue / send.cpu.totalValue) * 100) / usage.length, i: totals.i/ usage.length})
+  // post('http://localhost:9200/_bulk', `{"index":{"_index":"browser-data"}\n${JSON.stringify(browserData)}\n`)
+  //       .catch((err => {
+  //         console.log("Failed to send data:", err)
+  //       }));
+
+  console.log({idle, cpu: ((browserData.cpu.idleValue / browserData.cpu.totalValue) * 100) / usage.length, i: totals.i/ usage.length})
 
   cpuIdleArray.push(idle)
   cpuIdleArray.shift();
 
   chrome.browserAction.setTitle({
-    title: `Usage: ${(100 * (1 - send.cpu.idlePct)).toFixed(0)}%`
+    title: `Usage: ${(100 * (1 - browserData.cpu.idlePct)).toFixed(0)}%`
   })
   activityIcon.update(cpuIdleArray);
   chrome.browserAction.setIcon({
