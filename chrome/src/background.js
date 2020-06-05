@@ -1,9 +1,6 @@
 import {getSystemInfo} from './utils';
-import ActivityIcon from './activity-icon';
+import ActivityIcon, {cpuIdleArray} from './activity-icon';
 import config from './config';
-
-const ICON_SIZE = 19;
-const BORDER_WIDTH = 2;
 
 window.post = function(url, data) {
   return fetch(url, {
@@ -17,7 +14,6 @@ window.post = function(url, data) {
   });
 }
 
-
 const colourConfig = {
   cpu: {
     border: '#1874cd',
@@ -25,16 +21,6 @@ const colourConfig = {
   }
 }
 
-// 3 => [1, 1, 1]
-function fill(count) {
-  const arr = []
-  for(let i = 0; i < count; i += 1) {
-    arr.push(1)
-  }
-  return arr
-}
-
-const cpuIdleArray = fill(ICON_SIZE);
 const activityIcon = new ActivityIcon(colourConfig.cpu);
 
 getSystemInfo(({cpu: {usage}}) => {

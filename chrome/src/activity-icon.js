@@ -2,6 +2,17 @@ const ICON_SIZE = 19;
 const BORDER_WIDTH = 2;
 
 
+// 3 => [1, 1, 1]
+function fill(count) {
+  const arr = []
+  for(let i = 0; i < count; i += 1) {
+    arr.push(1)
+  }
+  return arr
+}
+
+export const cpuIdleArray = fill(ICON_SIZE);
+
 export default class ActivityIcon {
   constructor(colour) {
     const canvas = document.createElement('canvas')
