@@ -15,59 +15,13 @@ Kibana can be accessed from [http://localhost:5601/](http://localhost:5601/)
 
 Elastic can be accessed from [http://localhost:9200/](http://localhost:9200/)
 
-## 2. Add the data mappings to Elasticsearch 
+## 2. Add the dashboard to Kibana 
 
-Before we can send the performance data to Elasticsearch, we must set up the field [mappings](https://www.elastic.co/guide/en/elasticsearch/reference/7.7/mapping.html).
-
-
-```
-curl -X PUT 'localhost:9200/browser-data?pretty' -H 'Content-Type: application/json' -d'
-{
-  "mappings": {
-    "dynamic_templates": [
-      {
-        "unindexed_longs": {
-          "match_mapping_type": "long",
-          "mapping": {
-            "type": "long",
-            "index": false
-          }
-        }
-      },
-      {
-        "unindexed_doubles": {
-          "match_mapping_type": "double",
-          "mapping": {
-            "type": "float",
-            "index": false
-          }
-        }
-      }
-    ],
-    "properties": {
-      "@timestamp": {
-        "type": "date",
-        "doc_values": true
-      }
-    }
-  }
-}
-'
+```bash
+curl -X POST -H 'Content-Type: application/json' -H 'kbn-xsrf: true' -d @./kibana/dashboard.json http://localhost:5601/api/kibana/dashboards/import
 ```
 
-And create an index pattern based on the timestamp.
-
-```
-curl -X POST "http://localhost:5601/api/saved_objects/index-pattern/performance_index_pattern" -H "kbn-xsrf:true" -H 'Content-Type: application/json' -d'
-{
-    "attributes": {
-        "title":"browser-data*", 
-        "timeFieldName":"@timestamp"
-    }
-}'
-```
-
-## 3 Add Chrome Extension to Chrome
+## 3 Add the custom extension to Chrome
 
 It's currently configured to post to elasticsearch at ```http://localhost/``` in the ```config.js```.  You can also change the frequency that data is sent to elastic and the name that appears on the Kibana dashboard inside the ```config.js```.  
 
