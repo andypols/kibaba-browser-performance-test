@@ -48,6 +48,10 @@ and the CPU activity extension icon at the top.
 
 ![ext](./assets/icon.png)
 
+## 4 View the data on the Dashboard
+
+The ```Browser Performance``` dashboard can be accessed from [http://localhost:5601/app/kibana#/dashboards](http://localhost:5601/app/kibana#/dashboards)
+
 ## Handy docker commands
 
 * `docker ps -aq -f status=exited` ~ list all your stopped containers using
