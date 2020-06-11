@@ -69,3 +69,5 @@ The ```Browser Performance``` dashboard can be accessed from [http://localhost:5
 
 * https://www.elastic.co/guide/en/kibana/current/tutorial-build-dashboard.html
 * https://www.elastic.co/guide/en/kibana/current/tutorial-discovering.html
+* https://github.com/5ms/sniffer/blob/master/main.js
+* https://chromedevtools.github.io/devtools-protocol/
