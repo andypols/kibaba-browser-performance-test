@@ -1,9 +1,9 @@
 import config from "./config";
 
-const MESSAGE_BUFFER = 20;
+const MESSAGE_BUFFER = 40;
 
 function post(data) {
-  console.log('sending', data)
+  console.log(`Posting...`)
   return fetch(`${config.elasticIndexUrl}/_bulk`, {
     method: 'POST',
     body: data,

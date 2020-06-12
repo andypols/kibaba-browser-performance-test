@@ -56,13 +56,13 @@ function onEvent(debuggeeId, message, params) {
     return;
   }
 
-  console.log({debuggeeId, message, params});
-
   if(message === 'Network.webSocketFrameReceived') {
     messageSender.postMessage('browser-ws', {
       '@timestamp': new Date().toISOString(),
       browser: config.browserName,
       payload: params.response.payloadData.length
     });
+  } else {
+    console.log({debuggeeId, message, params});
   }
 }
