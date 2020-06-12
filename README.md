@@ -59,7 +59,7 @@ Click the extension icon on when viewing the browser tab you want to monitor.
 
 ![ext](./assets/icon.png)
 
-This will display a (very ugly) popup
+This will display a (very ugly) popup informing you that the extension has control of the debugger along with the data being sent.
 
 ### 5 View the data on the Dashboard
 
