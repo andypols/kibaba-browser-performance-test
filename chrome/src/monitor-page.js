@@ -6,7 +6,9 @@ export default () => {
     <React.Fragment>
       <h1>Browser Performance Monitor</h1>
 
-      <p>Sending the following stats to <code>{config.elasticIndexUrl}</code> you can see the data in the Kabana Dashboard with the browser name of <code>{config.browserName}</code></p>
+      <p>
+        Sending the following stats to <code>{config.elasticIndexUrl}</code>
+      </p>
 
       <ul>
         <li>System CPU</li>

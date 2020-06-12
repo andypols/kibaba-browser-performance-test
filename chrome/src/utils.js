@@ -1,22 +1,19 @@
-import config from './config';
-
-
 function getCpuUsage(processors, processorsOld) {
   const usage = []
-  for (let i = 0; i < processors.length; i++) {
+  for(let i = 0; i < processors.length; i++) {
     const processor = processors[i]
 
-    if (processor.total === 0) continue
+    if(processor.total === 0) continue
 
     const processorOld = processorsOld[i]
     usage.push(
       processorOld
         ? {
-            user: processor.user - processorOld.user,
-            kernel: processor.kernel - processorOld.kernel,
-            idle: processor.idle - processorOld.idle,
-            total: processor.total - processorOld.total,
-          }
+          user: processor.user - processorOld.user,
+          kernel: processor.kernel - processorOld.kernel,
+          idle: processor.idle - processorOld.idle,
+          total: processor.total - processorOld.total,
+        }
         : processor,
     )
   }
@@ -26,43 +23,22 @@ function getCpuUsage(processors, processorsOld) {
 export async function getSystemInfo(cb, processorsOld = []) {
   const [cpu, memory] = await Promise.all(
     ['cpu', 'memory'].map(item => {
-        return new Promise(resolve => {
-          chrome.system[item].getInfo(resolve)
-        })
+      return new Promise(resolve => {
+        chrome.system[item].getInfo(resolve)
+      })
     }),
   )
 
   const data = {}
   let processors
-  if (cpu) {
-    processors = cpu.processors.map(({ usage }) => usage)
+  if(cpu) {
+    processors = cpu.processors.map(({usage}) => usage)
     data.cpu = {
       usage: getCpuUsage(processors, processorsOld)
     }
   }
-  if (memory) data.memory = memory
-  if (storage) data.storage = { storage }
+  if(memory) data.memory = memory
 
   cb(data)
-  setTimeout(() => getSystemInfo(cb, processors), config.sendEveryMs);
-}
-
-export const storage = {
-  getPopupStatus() {
-    return new Promise(resolve => {
-      chrome.storage.sync.get(res => {
-        if (!res.popup) res.popup = {}
-        const {
-          cpu = true,
-          memory = true
-        } = res.popup
-        resolve({ cpu, memory, storage })
-      })
-    })
-  },
-  setPopupStatus(popup) {
-    return new Promise(resolve => {
-      chrome.storage.sync.set({ popup }, resolve)
-    })
-  },
+  setTimeout(() => getSystemInfo(cb, processors), 1000);
 }

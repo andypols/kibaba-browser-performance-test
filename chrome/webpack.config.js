@@ -9,7 +9,6 @@ module.exports = {
   devtool: 'cheap-source-map',
   entry: {
     background: './src/background',
-    options: './src/options',
     monitor: './src/monitor',
   },
   output: {
@@ -34,11 +33,6 @@ module.exports = {
       title: 'System Monitor',
       filename: 'monitor.html',
       chunks: ['monitor'],
-    }),
-    new HtmlWebpackPlugin({
-      title: 'System Monitor',
-      filename: 'options.html',
-      chunks: ['options'],
-    }),
+    })
   ],
 }
