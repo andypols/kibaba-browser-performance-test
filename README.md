@@ -65,6 +65,10 @@ The ```Browser Performance``` dashboard can be accessed from [http://localhost:5
 * ```http://localhost:9200/_cat/indices?v``` - see status, size doc-count of all indexes.
 * ```curl -X DELETE http://localhost:9200/browser-cpu``` - remove cpu index
 
+## Handy Kibana links and commands
+
+* ```curl -X GET "localhost:5601/api/kibana/dashboards/export?dashboard=<dashboard-gid>" > dashboard.json``` - export dashboard
+
 ## Refs
 
 * https://www.elastic.co/guide/en/kibana/current/tutorial-build-dashboard.html
