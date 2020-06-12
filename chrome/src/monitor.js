@@ -1,8 +1,11 @@
+import React from "react";
+import {render} from 'react-dom';
+
 import {getSystemInfo} from './utils';
 import ActivityIcon from './activity-icon';
-
 import config from './config';
 import MessageSender from './message_sender';
+import MonitorPage from './monitor-page.js'
 
 const messageSender = new MessageSender();
 const activityIcon = new ActivityIcon();
@@ -66,3 +69,7 @@ function onEvent(debuggeeId, message, params) {
     console.log({debuggeeId, message, params});
   }
 }
+
+const root = document.createElement('div')
+document.body.appendChild(root)
+render(<MonitorPage/>, root)
