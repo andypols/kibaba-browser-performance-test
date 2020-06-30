@@ -1,13 +1,14 @@
 import React from 'react';
-import config from './config';
 
-export default () => {
+export default ({config}) => {
+
+  console.log({config})
   return (
     <React.Fragment>
       <h1>Browser Performance Monitor</h1>
 
       <p>
-        Sending the following stats to <code>{config.elasticIndexUrl}</code>
+        Sending the following stats to <code>{config.elasticIndexUrl}</code> with the browser identified as <strong>{config.browserName}</strong>.
       </p>
 
       <ul>

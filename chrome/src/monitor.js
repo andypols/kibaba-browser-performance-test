@@ -81,4 +81,4 @@ function onEvent(debuggeeId, message, params) {
 
 const root = document.createElement('div')
 document.body.appendChild(root)
-render(<MonitorPage/>, root)
+render(<MonitorPage config={config}/>, root)
