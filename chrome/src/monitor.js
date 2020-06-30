@@ -33,6 +33,8 @@ getSystemInfo(({cpu: {usage}}) => {
     }
   }, {idle: 0, user: 0, total: 0, kernel: 0})
 
+  const {totalJSHeapSize, usedJSHeapSize, jsHeapSizeLimit} = window.performance.memory;
+
   const browserData = {
     '@timestamp': new Date().toISOString(),
     browser: config.browserName,
@@ -40,6 +42,13 @@ getSystemInfo(({cpu: {usage}}) => {
       idlePct: (totals.idle / usage.length) * 100,
       kernelPct: (totals.kernel / usage.length) * 100,
       userPct: (totals.user / usage.length) * 100
+    },
+    heap: {
+      totalJSHeapSize,
+      totalJSHeapSizePct: (totalJSHeapSize / jsHeapSizeLimit) * 100,
+      usedJSHeapSize,
+      usedJSHeapSizePct: (usedJSHeapSize / jsHeapSizeLimit) * 100,
+      jsHeapSizeLimit,
     }
   };
 

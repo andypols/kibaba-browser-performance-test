@@ -1,10 +1,10 @@
 # Kibana browser performance test monitor
 
-An experiment using Kibana to monitor Chrome browser performance as part of application testing. 
+An experiment using [Kibana](https://www.elastic.co/kibana) to monitor Chrome browser performance as part of application testing. 
 
-It contains a dockerised version of [Kibana 7.7.0](https://www.elastic.co/kibana) and a chrome browser extension that sends system cpu and websocket data to Kibana. More data coming soon.
+It contains a dockerised version of Kibana 7.7.0 and a chrome browser extension that sends system cpu, javascript heap usage and websocket frequency data to Kibana.
 
-The extension uses [chrome devtools-protocol](https://chromedevtools.github.io/devtools-protocol/) to interact with the browsers debugger.
+The extension uses the [chrome devtools-protocol](https://chromedevtools.github.io/devtools-protocol/) to interact with the browsers debugger.
 
 ## Instructions
 
@@ -75,7 +75,7 @@ The ```Browser Performance``` dashboard can be accessed from [http://localhost:5
 * `docker volume ls` ~ view all volumes
 * `docker volume prune` ~ remove unused volumes
 
-### Handy Elastic links and commands
+### Handy Elasticsearch links and commands
 
 * ```http://localhost:9200/_cat/indices?v``` - see status, size doc-count of all indexes.
 * ```curl -X DELETE http://localhost:9200/browser-cpu``` - remove cpu index
