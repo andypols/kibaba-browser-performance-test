@@ -3586,6 +3586,11 @@ react-dom@16.13.1:
     prop-types "^15.6.2"
     scheduler "^0.19.1"
 
+react-easy-edit@^1.9.0:
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/react-easy-edit/-/react-easy-edit-1.9.0.tgz#ae1fcb8a01db27254cbac97cf740ab5b7e943e07"
+  integrity sha512-aMpdrgEh3lDj6AO1e/Og5gdrOiWgET4EdqCPyk2Vjay9yLli6GOT/h2ke2/beDibV/ju1AJRCXKKXXvPkGa6iw==
+
 react-is@^16.8.1:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"

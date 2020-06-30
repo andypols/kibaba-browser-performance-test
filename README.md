@@ -22,6 +22,7 @@ Elastic can be accessed from [http://localhost:9200/](http://localhost:9200/)
 
 ```bash
 curl -X POST -H 'Content-Type: application/json' -H 'kbn-xsrf: true' -d @./kibana/dashboard.json http://localhost:5601/api/kibana/dashboards/import
+curl -X POST -H 'Content-Type: application/json' -H 'kbn-xsrf: true' -d @./kibana/browsers-dashboard.json http://localhost:5601/api/kibana/dashboards/import
 ```
 
 You can save any dashboard changes using:
@@ -29,6 +30,7 @@ You can save any dashboard changes using:
 ```bash
 curl -X GET "localhost:5601/api/kibana/dashboards/export?dashboard=<dashboard-gid>" > your-dashboard.json
 ``` 
+
 
 ### 3 Add the custom extension to Chrome
 

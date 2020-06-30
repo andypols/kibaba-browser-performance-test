@@ -1,15 +1,41 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import EasyEdit, {Types} from 'react-easy-edit';
+import getBrowserName from './get-browser-name';
 
 export default ({config}) => {
+  const [browserName, setBrowserName] = useState(config.browserName);
 
-  console.log({config})
+  const saveBrowserName = (value) => {
+    chrome.storage.sync.set({browserName: value}, function() {
+      console.log('Value is set to ' + value);
+    });
+  }
+
+  useEffect(() => {
+    getBrowserName()
+      .then(value => {
+        setBrowserName(value)
+      })
+  })
+
   return (
     <React.Fragment>
       <h1>Browser Performance Monitor</h1>
 
       <p>
-        Sending the following stats to <code>{config.elasticIndexUrl}</code> with the browser identified as <strong>{config.browserName}</strong>.
+        Sending the following stats to <strong>{config.elasticIndexUrl}</strong> with the browser identified as
+
+        <EasyEdit
+          type={Types.TEXT}
+          value={browserName}
+          onSave={saveBrowserName}
+          onCancel={(cancel) => console.log({cancel})}
+          saveButtonLabel="Save"
+          cancelButtonLabel="Cancel"
+          instructions="You can use this to filter the performance of this browser"
+        /> (click to change)
       </p>
+
 
       <ul>
         <li>System CPU</li>

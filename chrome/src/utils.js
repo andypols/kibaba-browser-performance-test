@@ -1,3 +1,5 @@
+import getBrowserName from './get-browser-name';
+
 function getCpuUsage(processors, processorsOld) {
   const usage = []
   for(let i = 0; i < processors.length; i++) {
@@ -29,7 +31,7 @@ export async function getSystemInfo(cb, processorsOld = []) {
     }),
   )
 
-  const data = {}
+  const data = {browser:  await getBrowserName()}
   let processors
   if(cpu) {
     processors = cpu.processors.map(({usage}) => usage)

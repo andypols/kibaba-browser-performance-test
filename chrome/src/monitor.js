@@ -23,7 +23,7 @@ function updateIcon(browserData) {
   });
 }
 
-getSystemInfo(({cpu: {usage}}) => {
+getSystemInfo (({cpu: {usage}, browser}) => {
   const totals = usage.reduce((acc, core) => {
     return {
       total: acc.total + core.total,
@@ -37,7 +37,7 @@ getSystemInfo(({cpu: {usage}}) => {
 
   const browserData = {
     '@timestamp': new Date().toISOString(),
-    browser: config.browserName,
+    browser: browser,
     cpu: {
       idlePct: (totals.idle / usage.length) * 100,
       kernelPct: (totals.kernel / usage.length) * 100,
