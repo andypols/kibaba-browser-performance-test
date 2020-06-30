@@ -1,0 +1,105 @@
+{
+  "version": "7.7.0",
+  "objects": [
+    {
+      "id": "4bede690-bae9-11ea-bd28-a59177003601",
+      "type": "dashboard",
+      "updated_at": "2020-06-30T15:53:04.113Z",
+      "version": "WzYwLDFd",
+      "attributes": {
+        "title": "Browsers",
+        "hits": 0,
+        "description": "",
+        "panelsJSON": "[{\"version\":\"7.7.0\",\"gridData\":{\"h\":15,\"i\":\"d431a0e3-4d03-41eb-8dbc-45fb7c5e32cc\",\"w\":24,\"x\":0,\"y\":0},\"panelIndex\":\"d431a0e3-4d03-41eb-8dbc-45fb7c5e32cc\",\"embeddableConfig\":{},\"panelRefName\":\"panel_0\"},{\"version\":\"7.7.0\",\"gridData\":{\"w\":24,\"h\":15,\"x\":24,\"y\":0,\"i\":\"b6cc1fa3-64a6-49ef-935d-cbc730a1095e\"},\"panelIndex\":\"b6cc1fa3-64a6-49ef-935d-cbc730a1095e\",\"embeddableConfig\":{},\"panelRefName\":\"panel_1\"}]",
+        "optionsJSON": "{\"hidePanelTitles\":false,\"useMargins\":true}",
+        "version": 1,
+        "timeRestore": false,
+        "kibanaSavedObjectMeta": {
+          "searchSourceJSON": "{\"query\":{\"language\":\"kuery\",\"query\":\"\"},\"filter\":[]}"
+        }
+      },
+      "references": [
+        {
+          "name": "panel_0",
+          "type": "visualization",
+          "id": "b90c9510-bae8-11ea-bd28-a59177003601"
+        },
+        {
+          "name": "panel_1",
+          "type": "visualization",
+          "id": "b7ab13d0-bae9-11ea-bd28-a59177003601"
+        }
+      ],
+      "migrationVersion": {
+        "dashboard": "7.3.0"
+      }
+    },
+    {
+      "id": "b90c9510-bae8-11ea-bd28-a59177003601",
+      "type": "visualization",
+      "updated_at": "2020-06-30T15:49:53.764Z",
+      "version": "WzQ4LDFd",
+      "attributes": {
+        "title": "Browsers",
+        "visState": "{\"aggs\":[{\"enabled\":true,\"id\":\"1\",\"params\":{},\"schema\":\"metric\",\"type\":\"count\"},{\"enabled\":true,\"id\":\"2\",\"params\":{\"field\":\"browser.keyword\",\"missingBucket\":false,\"missingBucketLabel\":\"Missing\",\"order\":\"desc\",\"orderBy\":\"1\",\"otherBucket\":false,\"otherBucketLabel\":\"Other\",\"size\":5},\"schema\":\"bucket\",\"type\":\"terms\"}],\"params\":{\"perPage\":10,\"percentageCol\":\"\",\"showMetricsAtAllLevels\":false,\"showPartialRows\":false,\"showTotal\":false,\"sort\":{\"columnIndex\":null,\"direction\":null},\"totalFunc\":\"sum\"},\"title\":\"Browsers\",\"type\":\"table\"}",
+        "uiStateJSON": "{\"vis\":{\"params\":{\"sort\":{\"columnIndex\":null,\"direction\":null}}}}",
+        "description": "",
+        "version": 1,
+        "kibanaSavedObjectMeta": {
+          "searchSourceJSON": "{\"query\":{\"language\":\"kuery\",\"query\":\"\"},\"filter\":[],\"indexRefName\":\"kibanaSavedObjectMeta.searchSourceJSON.index\"}"
+        }
+      },
+      "references": [
+        {
+          "name": "kibanaSavedObjectMeta.searchSourceJSON.index",
+          "type": "index-pattern",
+          "id": "browser-cpu"
+        }
+      ],
+      "migrationVersion": {
+        "visualization": "7.7.0"
+      }
+    },
+    {
+      "id": "b7ab13d0-bae9-11ea-bd28-a59177003601",
+      "type": "visualization",
+      "updated_at": "2020-06-30T15:52:35.981Z",
+      "version": "WzU1LDFd",
+      "attributes": {
+        "title": "Total Browsers",
+        "visState": "{\"type\":\"gauge\",\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"cardinality\",\"schema\":\"metric\",\"params\":{\"field\":\"browser.keyword\",\"customLabel\":\"Number of browsers\"}}],\"params\":{\"addLegend\":true,\"addTooltip\":true,\"gauge\":{\"alignment\":\"automatic\",\"backStyle\":\"Full\",\"colorSchema\":\"Green to Red\",\"colorsRange\":[{\"from\":0,\"to\":50},{\"from\":50,\"to\":75},{\"from\":75,\"to\":100}],\"extendRange\":true,\"gaugeColorMode\":\"Labels\",\"gaugeStyle\":\"Full\",\"gaugeType\":\"Arc\",\"invertColors\":false,\"labels\":{\"color\":\"black\",\"show\":true},\"orientation\":\"vertical\",\"percentageMode\":false,\"scale\":{\"color\":\"rgba(105,112,125,0.2)\",\"labels\":false,\"show\":true},\"style\":{\"bgColor\":true,\"bgFill\":\"rgba(105,112,125,0.2)\",\"bgMask\":false,\"bgWidth\":0.9,\"fontSize\":60,\"mask\":false,\"maskBars\":50,\"subText\":\"\",\"width\":0.9},\"type\":\"meter\"},\"isDisplayWarning\":false,\"type\":\"gauge\"},\"title\":\"Total Browsers\"}",
+        "uiStateJSON": "{}",
+        "description": "",
+        "version": 1,
+        "kibanaSavedObjectMeta": {
+          "searchSourceJSON": "{\"query\":{\"language\":\"kuery\",\"query\":\"\"},\"filter\":[],\"indexRefName\":\"kibanaSavedObjectMeta.searchSourceJSON.index\"}"
+        }
+      },
+      "references": [
+        {
+          "name": "kibanaSavedObjectMeta.searchSourceJSON.index",
+          "type": "index-pattern",
+          "id": "browser-cpu"
+        }
+      ],
+      "migrationVersion": {
+        "visualization": "7.7.0"
+      }
+    },
+    {
+      "id": "browser-cpu",
+      "type": "index-pattern",
+      "updated_at": "2020-06-30T14:22:08.212Z",
+      "version": "WzgsMV0=",
+      "attributes": {
+        "title": "browser-cpu",
+        "timeFieldName": "@timestamp",
+        "fields": "[{\"name\":\"@timestamp\",\"type\":\"date\",\"esTypes\":[\"date\"],\"count\":0,\"scripted\":false,\"searchable\":true,\"aggregatable\":true,\"readFromDocValues\":true},{\"name\":\"_id\",\"type\":\"string\",\"esTypes\":[\"_id\"],\"count\":0,\"scripted\":false,\"searchable\":true,\"aggregatable\":true,\"readFromDocValues\":false},{\"name\":\"_index\",\"type\":\"string\",\"esTypes\":[\"_index\"],\"count\":0,\"scripted\":false,\"searchable\":true,\"aggregatable\":true,\"readFromDocValues\":false},{\"name\":\"_score\",\"type\":\"number\",\"count\":0,\"scripted\":false,\"searchable\":false,\"aggregatable\":false,\"readFromDocValues\":false},{\"name\":\"_source\",\"type\":\"_source\",\"esTypes\":[\"_source\"],\"count\":0,\"scripted\":false,\"searchable\":false,\"aggregatable\":false,\"readFromDocValues\":false},{\"name\":\"_type\",\"type\":\"string\",\"esTypes\":[\"_type\"],\"count\":0,\"scripted\":false,\"searchable\":true,\"aggregatable\":true,\"readFromDocValues\":false},{\"name\":\"browser\",\"type\":\"string\",\"esTypes\":[\"text\"],\"count\":0,\"scripted\":false,\"searchable\":true,\"aggregatable\":false,\"readFromDocValues\":false},{\"name\":\"browser.keyword\",\"type\":\"string\",\"esTypes\":[\"keyword\"],\"count\":0,\"scripted\":false,\"searchable\":true,\"aggregatable\":true,\"readFromDocValues\":true,\"subType\":{\"multi\":{\"parent\":\"browser\"}}},{\"name\":\"cpu.idlePct\",\"type\":\"number\",\"esTypes\":[\"float\"],\"count\":0,\"scripted\":false,\"searchable\":true,\"aggregatable\":true,\"readFromDocValues\":true},{\"name\":\"cpu.kernelPct\",\"type\":\"number\",\"esTypes\":[\"float\"],\"count\":0,\"scripted\":false,\"searchable\":true,\"aggregatable\":true,\"readFromDocValues\":true},{\"name\":\"cpu.userPct\",\"type\":\"number\",\"esTypes\":[\"float\"],\"count\":0,\"scripted\":false,\"searchable\":true,\"aggregatable\":true,\"readFromDocValues\":true},{\"name\":\"heap.jsHeapSizeLimit\",\"type\":\"number\",\"esTypes\":[\"long\"],\"count\":0,\"scripted\":false,\"searchable\":true,\"aggregatable\":true,\"readFromDocValues\":true},{\"name\":\"heap.totalJSHeapSize\",\"type\":\"number\",\"esTypes\":[\"long\"],\"count\":0,\"scripted\":false,\"searchable\":true,\"aggregatable\":true,\"readFromDocValues\":true},{\"name\":\"heap.usedJSHeapSize\",\"type\":\"number\",\"esTypes\":[\"long\"],\"count\":0,\"scripted\":false,\"searchable\":true,\"aggregatable\":true,\"readFromDocValues\":true}]"
+      },
+      "references": [],
+      "migrationVersion": {
+        "index-pattern": "7.6.0"
+      }
+    }
+  ]
+}
