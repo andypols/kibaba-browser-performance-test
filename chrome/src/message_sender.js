@@ -1,10 +1,11 @@
-import config from "./config";
+import {getElasticIndexUrl} from './get-settings';
 
 const MESSAGE_BUFFER = 40;
 
-function post(data) {
+async function post(data) {
   console.log(`Posting...`)
-  return fetch(`${config.elasticIndexUrl}/_bulk`, {
+  const elasticIndexUrl = await getElasticIndexUrl();
+  return fetch(`${elasticIndexUrl}/_bulk`, {
     method: 'POST',
     body: data,
     mode: 'cors',
