@@ -1,4 +1,4 @@
-import getBrowserName from './get-settings';
+import {getBrowserName} from './get-settings';
 
 function getCpuUsage(processors, processorsOld) {
   const usage = []

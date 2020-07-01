@@ -1,6 +1,6 @@
 import config from './config';
 
-export default () => {
+export function getBrowserName () {
   return new Promise((resolve, reject) =>
     chrome.storage.sync.get('browserName', result => chrome.runtime.lastError
       ? reject(Error(chrome.runtime.lastError.message))
