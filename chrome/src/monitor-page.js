@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import EasyEdit, {Types} from 'react-easy-edit';
-import getBrowserName from './get-browser-name';
+import getBrowserName from './get-settings';
 
 export default ({config}) => {
   const [browserName, setBrowserName] = useState(config.browserName);
