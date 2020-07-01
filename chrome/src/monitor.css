@@ -1,0 +1,15 @@
+.container {
+    /*width: 90%;*/
+    margin: auto;
+    padding: 10px;
+}
+
+.one {
+    /*width: 15%;*/
+    /*background: red;*/
+    float: left;
+}
+
+.two {
+    padding-left: 15px;
+}

@@ -1,6 +1,30 @@
+import './monitor.css';
 import React, {useEffect, useState} from 'react';
 import EasyEdit, {Types} from 'react-easy-edit';
 import {getBrowserName} from './get-settings';
+
+const ClickToEdit = ({value, onSave}) => {
+  const [editMode, setEditMode] = useState(false)
+
+  if(editMode) {
+    return (
+      <EasyEdit
+        editing={true}
+        type={Types.TEXT}
+        value={value}
+        onSave={onSave}
+        onCancel={(cancel) => setEditMode(false)}
+        saveButtonLabel="Save"
+        cancelButtonLabel="Cancel"
+      />
+    )
+
+  }
+
+  return (
+    <strong onClick={() => setEditMode(true)}>{value}</strong>
+  )
+}
 
 export default ({config}) => {
   const [browserName, setBrowserName] = useState(config.browserName);
@@ -22,20 +46,15 @@ export default ({config}) => {
     <React.Fragment>
       <h1>Browser Performance Monitor</h1>
 
-      <p>
-        Sending the following stats to <strong>{config.elasticIndexUrl}</strong> with the browser identified as
+      <section className="container">
+        <div className="one">Sending the following stats to:</div>
+        <div className="two"><strong>{config.elasticIndexUrl}</strong></div>
+      </section>
 
-        <EasyEdit
-          type={Types.TEXT}
-          value={browserName}
-          onSave={saveBrowserName}
-          onCancel={(cancel) => console.log({cancel})}
-          saveButtonLabel="Save"
-          cancelButtonLabel="Cancel"
-          instructions="You can use this to filter the performance of this browser"
-        /> (click to change)
-      </p>
-
+      <section className="container">
+        <div className="one">The performance stats will be identified using browser:</div>
+        <div className="two"><ClickToEdit value={browserName} onSave={saveBrowserName}/></div>
+      </section>
 
       <ul>
         <li>System CPU</li>
