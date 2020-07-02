@@ -61,6 +61,8 @@ Click the extension icon on when viewing the browser tab you want to monitor.
 
 This will display a (very ugly) popup informing you that the extension has control of the debugger along with the data being sent.
 
+You can change the browser name (the name is used to identify and filter the results in Kibana) and the Elastic Search URL (where the data is being sent) by double-clicking on the fields.
+
 ### 5 View the data on the Dashboard
 
 The ```Browser Performance``` dashboard can be accessed from [http://localhost:5601/app/kibana#/dashboards](http://localhost:5601/app/kibana#/dashboards)
