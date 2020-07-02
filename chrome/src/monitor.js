@@ -4,8 +4,10 @@ import {render} from 'react-dom';
 import MessageSender from './message_sender';
 import MonitorPage from './monitor-page.js'
 import {getBrowserName} from './get-settings';
+import WebSocketStats from './stats/web-socket-stats';
 
 const messageSender = new MessageSender();
+const chromeTabWeAreMonitoring = parseInt(window.location.search.substring(1));
 
 // two types
 //
@@ -14,6 +16,28 @@ const messageSender = new MessageSender();
 //
 // Easy to add new ones to either set.
 //
+
+//
+// Listen for event based things we are interested in.
+//
+
+const eventData = {
+  'Network.webSocketFrameReceived': new WebSocketStats(messageSender)
+}
+
+window.addEventListener("load", function() {
+  chrome.debugger.sendCommand({tabId: chromeTabWeAreMonitoring}, "Network.enable");
+  chrome.debugger.onEvent.addListener(async function(debuggeeId, message, params) {
+    if(chromeTabWeAreMonitoring === debuggeeId.tabId) {
+      if(eventData[message]) {
+        eventData[message].send(params)
+      } else {
+        console.log('Ignoring: ', {debuggeeId, message});
+      }
+    }
+  });
+});
+
 
 function getCpuUsage(processors, processorsOld) {
   const usage = []
@@ -87,28 +111,6 @@ getSystemInfo(({cpu: {usage}, browser}) => {
   messageSender.postMessage('browser-cpu', browserData);
 });
 
-const tabId = parseInt(window.location.search.substring(1));
-
-window.addEventListener("load", function() {
-  chrome.debugger.sendCommand({tabId: tabId}, "Network.enable");
-  chrome.debugger.onEvent.addListener(onEvent);
-});
-
-async function onEvent(debuggeeId, message, params) {
-  if(tabId != debuggeeId.tabId) {
-    return;
-  }
-
-  if(message === 'Network.webSocketFrameReceived') {
-    messageSender.postMessage('browser-ws', {
-      '@timestamp': new Date().toISOString(),
-      browser: await getBrowserName(),
-      payload: params.response.payloadData.length
-    });
-  } else {
-    console.log({debuggeeId, message});
-  }
-}
 
 const root = document.createElement('div')
 document.body.appendChild(root)
