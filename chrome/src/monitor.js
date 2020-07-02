@@ -5,6 +5,7 @@ import MessageSender from './message_sender';
 import MonitorPage from './monitor-page.js'
 import {getBrowserName} from './get-settings';
 import WebSocketStats from './stats/web-socket-stats';
+import HeapStats from './stats/heap-stats';
 
 const messageSender = new MessageSender();
 const chromeTabWeAreMonitoring = parseInt(window.location.search.substring(1));
@@ -33,7 +34,13 @@ window.addEventListener("load", function() {
   });
 });
 
+//
+// Data handlers for timer based things we collect every second
+//
 
+const timerHandlers = {
+  heap: new HeapStats()
+}
 
 function getCpuUsage(processors, processorsOld) {
   const usage = []
@@ -84,9 +91,7 @@ getSystemInfo(({cpu: {usage}, browser}) => {
       kernel: acc.kernel + core.kernel / core.total,
     }
   }, {idle: 0, user: 0, total: 0, kernel: 0})
-
-  const {totalJSHeapSize, usedJSHeapSize, jsHeapSizeLimit} = window.performance.memory;
-
+  
   const browserData = {
     '@timestamp': new Date().toISOString(),
     browser: browser,
@@ -95,13 +100,7 @@ getSystemInfo(({cpu: {usage}, browser}) => {
       kernelPct: (totals.kernel / usage.length) * 100,
       userPct: (totals.user / usage.length) * 100
     },
-    heap: {
-      totalJSHeapSize,
-      totalJSHeapSizePct: (totalJSHeapSize / jsHeapSizeLimit) * 100,
-      usedJSHeapSize,
-      usedJSHeapSizePct: (usedJSHeapSize / jsHeapSizeLimit) * 100,
-      jsHeapSizeLimit,
-    }
+    heap: timerHandlers['heap']
   };
 
   messageSender.postMessage('browser-cpu', browserData);
