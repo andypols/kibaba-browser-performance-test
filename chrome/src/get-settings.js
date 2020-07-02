@@ -1,4 +1,3 @@
-import config from './config';
 import {isEmpty} from 'lodash';
 
 function getSetting(setting) {
@@ -6,7 +5,7 @@ function getSetting(setting) {
     chrome.storage.sync.get(setting, (result) => {
       chrome.runtime.lastError
         ? reject(Error(chrome.runtime.lastError.message))
-        : resolve(isEmpty(result) ? config[setting] : result[setting])
+        : resolve(isEmpty(result) ? null : result[setting])
     })
   )
 }

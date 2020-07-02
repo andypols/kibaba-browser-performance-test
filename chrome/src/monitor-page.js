@@ -46,12 +46,12 @@ export default () => {
   useEffect(() => {
     getBrowserName()
       .then(value => {
-        setBrowserName(isEmpty(value) ? 'Please specify browser (double click)' : value)
+        setBrowserName(isEmpty(value) ? 'Please give browser a unique name (double click)' : value)
       });
 
     getElasticIndexUrl()
       .then(value => {
-        setElasticIndexUrl(isEmpty(value) ? 'Please performance monitor data URL (double click)' : value)
+        setElasticIndexUrl(isEmpty(value) ? 'Please set performance data URL (double click)' : value)
       });
   })
 
