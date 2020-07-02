@@ -6,6 +6,7 @@ import MonitorPage from './monitor-page.js'
 import {getBrowserName} from './get-settings';
 import WebSocketStats from './stats/web-socket-stats';
 import HeapStats from './stats/heap-stats';
+import SystemCpuStats from './stats/system-cpu-stats';
 
 const messageSender = new MessageSender();
 const chromeTabWeAreMonitoring = parseInt(window.location.search.substring(1));
@@ -39,7 +40,8 @@ window.addEventListener("load", function() {
 //
 
 const timerHandlers = {
-  heap: new HeapStats()
+  heap: new HeapStats(),
+  cpu: new SystemCpuStats()
 }
 
 function getCpuUsage(processors, processorsOld) {
@@ -83,23 +85,10 @@ export async function sendTimerData(cb, processorsOld = []) {
 }
 
 sendTimerData(({cpu: {usage}, browser}) => {
-  const totals = usage.reduce((acc, core) => {
-    return {
-      total: acc.total + core.total,
-      idle: acc.idle + core.idle / core.total,
-      user: acc.user + core.user / core.total,
-      kernel: acc.kernel + core.kernel / core.total,
-    }
-  }, {idle: 0, user: 0, total: 0, kernel: 0})
-
   const browserData = {
     '@timestamp': new Date().toISOString(),
     browser: browser,
-    cpu: {
-      idlePct: (totals.idle / usage.length) * 100,
-      kernelPct: (totals.kernel / usage.length) * 100,
-      userPct: (totals.user / usage.length) * 100
-    },
+    cpu: timerHandlers['cpu'].collect(usage),
     heap: timerHandlers['heap'].collect()
   };
 
