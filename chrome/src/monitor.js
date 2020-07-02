@@ -3,7 +3,6 @@ import {render} from 'react-dom';
 
 import {getSystemInfo} from './utils';
 import ActivityIcon from './activity-icon';
-import config from './config';
 import MessageSender from './message_sender';
 import MonitorPage from './monitor-page.js'
 import {getBrowserName} from './get-settings';
@@ -82,4 +81,4 @@ async function onEvent(debuggeeId, message, params) {
 
 const root = document.createElement('div')
 document.body.appendChild(root)
-render(<MonitorPage config={config}/>, root)
+render(<MonitorPage />, root)

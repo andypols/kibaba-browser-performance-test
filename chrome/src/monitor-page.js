@@ -1,7 +1,8 @@
 import './monitor.css';
 import React, {useEffect, useState} from 'react';
 import EasyEdit, {Types} from 'react-easy-edit';
-import {getBrowserName} from './get-settings';
+import {getBrowserName, getElasticIndexUrl} from './get-settings';
+import {isEmpty} from "lodash";
 
 const ClickToEdit = ({value, onSave}) => {
   const [editMode, setEditMode] = useState(false)
@@ -26,8 +27,9 @@ const ClickToEdit = ({value, onSave}) => {
   )
 }
 
-export default ({config}) => {
-  const [browserName, setBrowserName] = useState(config.browserName);
+export default () => {
+  const [browserName, setBrowserName] = useState("");
+  const [elasticIndexUrl, setElasticIndexUrl] = useState("");
 
   const saveBrowserName = (value) => {
     chrome.storage.sync.set({browserName: value}, function() {
@@ -35,11 +37,22 @@ export default ({config}) => {
     });
   }
 
+  const saveElasticIndexUrl = (value) => {
+    chrome.storage.sync.set({elasticIndexUrl: value}, function() {
+      console.log('Value is set to ' + value);
+    });
+  }
+
   useEffect(() => {
     getBrowserName()
       .then(value => {
-        setBrowserName(value)
-      })
+        setBrowserName(isEmpty(value) ? 'Please specify browser (double click)' : value)
+      });
+
+    getElasticIndexUrl()
+      .then(value => {
+        setElasticIndexUrl(isEmpty(value) ? 'Please performance monitor data URL (double click)' : value)
+      });
   })
 
   return (
@@ -48,7 +61,7 @@ export default ({config}) => {
 
       <section className="container">
         <div className="one">Sending the following stats to:</div>
-        <div className="two"><strong>{config.elasticIndexUrl}</strong></div>
+        <div className="two"><ClickToEdit value={elasticIndexUrl} onSave={saveElasticIndexUrl}/></div>
       </section>
 
       <section className="container">
