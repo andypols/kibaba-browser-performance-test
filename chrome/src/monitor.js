@@ -64,7 +64,7 @@ function getCpuUsage(processors, processorsOld) {
   return usage
 }
 
-export async function getSystemInfo(cb, processorsOld = []) {
+export async function sendTimerData(cb, processorsOld = []) {
   const cpu = await new Promise(resolve => {
     chrome.system['cpu'].getInfo(resolve)
   });
@@ -79,10 +79,10 @@ export async function getSystemInfo(cb, processorsOld = []) {
   }
 
   cb(data)
-  setTimeout(() => getSystemInfo(cb, processors), 1000);
+  setTimeout(() => sendTimerData(cb, processors), 1000);
 }
 
-getSystemInfo(({cpu: {usage}, browser}) => {
+sendTimerData(({cpu: {usage}, browser}) => {
   const totals = usage.reduce((acc, core) => {
     return {
       total: acc.total + core.total,
