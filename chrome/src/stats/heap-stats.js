@@ -1,5 +1,5 @@
 export default class HeapStats {
-  async collect() {
+  collect() {
     const {totalJSHeapSize, usedJSHeapSize, jsHeapSizeLimit} = window.performance.memory;
 
     return {
@@ -8,7 +8,7 @@ export default class HeapStats {
       usedJSHeapSize,
       usedJSHeapSizePct: (usedJSHeapSize / jsHeapSizeLimit) * 100,
       jsHeapSizeLimit,
-    }
+    };
   }
 }
 

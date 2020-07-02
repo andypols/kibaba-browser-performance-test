@@ -91,7 +91,7 @@ sendTimerData(({cpu: {usage}, browser}) => {
       kernel: acc.kernel + core.kernel / core.total,
     }
   }, {idle: 0, user: 0, total: 0, kernel: 0})
-  
+
   const browserData = {
     '@timestamp': new Date().toISOString(),
     browser: browser,
@@ -100,7 +100,7 @@ sendTimerData(({cpu: {usage}, browser}) => {
       kernelPct: (totals.kernel / usage.length) * 100,
       userPct: (totals.user / usage.length) * 100
     },
-    heap: timerHandlers['heap']
+    heap: timerHandlers['heap'].collect()
   };
 
   messageSender.postMessage('browser-cpu', browserData);
@@ -109,4 +109,4 @@ sendTimerData(({cpu: {usage}, browser}) => {
 
 const root = document.createElement('div')
 document.body.appendChild(root)
-render(<MonitorPage />, root)
+render(<MonitorPage/>, root)
