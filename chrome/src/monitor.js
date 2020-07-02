@@ -7,6 +7,14 @@ import {getBrowserName} from './get-settings';
 
 const messageSender = new MessageSender();
 
+// two types
+//
+// 1: ones collected every x (cpu/heap, etc)
+// 2; ones collected when event triggers (web socket)
+//
+// Easy to add new ones to either set.
+//
+
 function getCpuUsage(processors, processorsOld) {
   const usage = []
   for(let i = 0; i < processors.length; i++) {
