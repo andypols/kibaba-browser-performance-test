@@ -9,34 +9,30 @@ import WebSocketStats from './stats/web-socket-stats';
 const messageSender = new MessageSender();
 const chromeTabWeAreMonitoring = parseInt(window.location.search.substring(1));
 
-// two types
 //
-// 1: ones collected every x (cpu/heap, etc)
-// 2; ones collected when event triggers (web socket)
-//
-// Easy to add new ones to either set.
+// Data handlers for event based things we are interested in.
 //
 
-//
-// Listen for event based things we are interested in.
-//
-
-const eventData = {
+const eventHandlers = {
   'Network.webSocketFrameReceived': new WebSocketStats(messageSender)
 }
 
 window.addEventListener("load", function() {
+  // listen to things that interest us
   chrome.debugger.sendCommand({tabId: chromeTabWeAreMonitoring}, "Network.enable");
+
+  // post event data we are interested in to Elastic
   chrome.debugger.onEvent.addListener(async function(debuggeeId, message, params) {
     if(chromeTabWeAreMonitoring === debuggeeId.tabId) {
-      if(eventData[message]) {
-        eventData[message].send(params)
+      if(eventHandlers[message]) {
+        eventHandlers[message].send(params)
       } else {
         console.log('Ignoring: ', {debuggeeId, message});
       }
     }
   });
 });
+
 
 
 function getCpuUsage(processors, processorsOld) {
