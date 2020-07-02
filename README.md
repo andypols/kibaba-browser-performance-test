@@ -34,9 +34,7 @@ curl -X GET "localhost:5601/api/kibana/dashboards/export?dashboard=<dashboard-gi
 
 ### 3 Add the custom extension to Chrome
 
-It's currently configured to post to elasticsearch at ```http://localhost/``` in the ```config.js```.    
-
-The chrome-extension must have permission to post to Kibana. If you change config the to point to a different host, you must update the permissions in the ```manifest.json```.
+The chrome-extension must have permission to post to Kibana. If you change Elastic to run on a specific host, you must update the permissions in the ```manifest.json```.
 
 Build the plugin (into ```dist``` in the ```chrome/extension``` folder):
 
