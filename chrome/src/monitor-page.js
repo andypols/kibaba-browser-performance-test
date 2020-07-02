@@ -1,8 +1,8 @@
 import './monitor.css';
 import React, {useEffect, useState} from 'react';
+import {isEmpty} from 'lodash';
 import EasyEdit, {Types} from 'react-easy-edit';
 import {getBrowserName, getElasticIndexUrl} from './get-settings';
-import {isEmpty} from "lodash";
 
 const ClickToEdit = ({value, onSave}) => {
   const [editMode, setEditMode] = useState(false)

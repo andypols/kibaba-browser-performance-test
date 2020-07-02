@@ -2,26 +2,11 @@ import React from "react";
 import {render} from 'react-dom';
 
 import {getSystemInfo} from './utils';
-import ActivityIcon from './activity-icon';
 import MessageSender from './message_sender';
 import MonitorPage from './monitor-page.js'
 import {getBrowserName} from './get-settings';
 
 const messageSender = new MessageSender();
-const activityIcon = new ActivityIcon();
-
-function updateIcon(browserData) {
-  const idle = browserData.cpu.idlePct / 100;
-
-  chrome.browserAction.setTitle({
-    title: `Usage: ${(100 * (1 - idle)).toFixed(0)}%`
-  });
-
-  activityIcon.update(idle);
-  chrome.browserAction.setIcon({
-    imageData: activityIcon.getImageData()
-  });
-}
 
 getSystemInfo(({cpu: {usage}, browser}) => {
   const totals = usage.reduce((acc, core) => {
@@ -53,7 +38,6 @@ getSystemInfo(({cpu: {usage}, browser}) => {
   };
 
   messageSender.postMessage('browser-cpu', browserData);
-  updateIcon(browserData);
 });
 
 const tabId = parseInt(window.location.search.substring(1));

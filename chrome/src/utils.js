@@ -23,15 +23,11 @@ function getCpuUsage(processors, processorsOld) {
 }
 
 export async function getSystemInfo(cb, processorsOld = []) {
-  const [cpu, memory] = await Promise.all(
-    ['cpu', 'memory'].map(item => {
-      return new Promise(resolve => {
-        chrome.system[item].getInfo(resolve)
-      })
-    }),
-  )
+  const cpu = await new Promise(resolve => {
+    chrome.system['cpu'].getInfo(resolve)
+  });
 
-  const data = {browser:  await getBrowserName()}
+  const data = {browser: await getBrowserName()}
   let processors
   if(cpu) {
     processors = cpu.processors.map(({usage}) => usage)
@@ -39,7 +35,6 @@ export async function getSystemInfo(cb, processorsOld = []) {
       usage: getCpuUsage(processors, processorsOld)
     }
   }
-  if(memory) data.memory = memory
 
   cb(data)
   setTimeout(() => getSystemInfo(cb, processors), 1000);

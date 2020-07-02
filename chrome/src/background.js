@@ -10,6 +10,5 @@ function onAttach(tabId) {
     return;
   }
 
-  console.log({tabId})
   chrome.windows.create({url: "dist/monitor.html?" + tabId, type: "popup", width: 800, height: 600});
 }
