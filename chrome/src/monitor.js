@@ -6,6 +6,7 @@ import ActivityIcon from './activity-icon';
 import config from './config';
 import MessageSender from './message_sender';
 import MonitorPage from './monitor-page.js'
+import {getBrowserName} from './get-settings';
 
 const messageSender = new MessageSender();
 const activityIcon = new ActivityIcon();
@@ -23,7 +24,7 @@ function updateIcon(browserData) {
   });
 }
 
-getSystemInfo (({cpu: {usage}, browser}) => {
+getSystemInfo(({cpu: {usage}, browser}) => {
   const totals = usage.reduce((acc, core) => {
     return {
       total: acc.total + core.total,
@@ -63,7 +64,7 @@ window.addEventListener("load", function() {
   chrome.debugger.onEvent.addListener(onEvent);
 });
 
-function onEvent(debuggeeId, message, params) {
+async function onEvent(debuggeeId, message, params) {
   if(tabId != debuggeeId.tabId) {
     return;
   }
@@ -71,11 +72,11 @@ function onEvent(debuggeeId, message, params) {
   if(message === 'Network.webSocketFrameReceived') {
     messageSender.postMessage('browser-ws', {
       '@timestamp': new Date().toISOString(),
-      browser: config.browserName,
+      browser: await getBrowserName(),
       payload: params.response.payloadData.length
     });
   } else {
-    console.log({debuggeeId, message, params});
+    console.log({debuggeeId, message});
   }
 }
 
