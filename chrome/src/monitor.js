@@ -73,19 +73,17 @@ async function sendTimerData(cb, processorsOld = []) {
 
   const data = {browser: await getBrowserName()}
   let processors = cpu.processors.map(({usage}) => usage)
-  data.cpu = {
-    usage: getCpuUsage(processors, processorsOld)
-  }
+  data.cpu = getCpuUsage(processors, processorsOld)
 
   cb(data)
   setTimeout(() => sendTimerData(cb, processors), 1000);
 }
 
-sendTimerData(({cpu: {usage}, browser}) => {
+sendTimerData(({cpu, browser}) => {
   const browserData = {
     '@timestamp': new Date().toISOString(),
     browser: browser,
-    cpu: timerHandlers['cpu'].collect(usage),
+    cpu: timerHandlers['cpu'].collect(cpu),
     heap: timerHandlers['heap'].collect()
   };
 
