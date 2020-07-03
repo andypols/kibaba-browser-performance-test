@@ -71,9 +71,12 @@ async function sendTimerData(cb, processorsOld = []) {
     chrome.system['cpu'].getInfo(resolve)
   });
 
-  const data = {browser: await getBrowserName()}
-  let processors = cpu.processors.map(({usage}) => usage)
-  data.cpu = getCpuUsage(processors, processorsOld)
+  const processors = cpu.processors.map(({usage}) => usage)
+
+  const data = {
+    browser: await getBrowserName(),
+    cpu: getCpuUsage(processors, processorsOld)
+  }
 
   cb(data)
   setTimeout(() => sendTimerData(cb, processors), 1000);
