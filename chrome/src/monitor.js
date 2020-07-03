@@ -66,18 +66,15 @@ function getCpuUsage(processors, processorsOld) {
   return usage
 }
 
-export async function sendTimerData(cb, processorsOld = []) {
+async function sendTimerData(cb, processorsOld = []) {
   const cpu = await new Promise(resolve => {
     chrome.system['cpu'].getInfo(resolve)
   });
 
   const data = {browser: await getBrowserName()}
-  let processors
-  if(cpu) {
-    processors = cpu.processors.map(({usage}) => usage)
-    data.cpu = {
-      usage: getCpuUsage(processors, processorsOld)
-    }
+  let processors = cpu.processors.map(({usage}) => usage)
+  data.cpu = {
+    usage: getCpuUsage(processors, processorsOld)
   }
 
   cb(data)
