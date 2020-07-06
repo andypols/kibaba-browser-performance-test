@@ -5,6 +5,10 @@ export default class WebSocketStats {
      this.messageSender = messageSender;
    }
 
+   typeOfEventsToListenFor() {
+     return 'Network.enable';
+   }
+
    async send(wsData) {
      this.messageSender.postMessage('browser-ws', {
        '@timestamp': new Date().toISOString(),
