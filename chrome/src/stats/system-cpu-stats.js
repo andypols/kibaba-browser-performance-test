@@ -1,5 +1,9 @@
 export default class SystemCpuStats {
-  collect(usage) {
+  constructor() {
+    this.previousProcessorValues = []
+  }
+
+  asPercentage(usage) {
     const totals = usage.reduce((acc, core) => {
       return {
         total: acc.total + core.total,
@@ -14,6 +18,40 @@ export default class SystemCpuStats {
       kernelPct: (totals.kernel / usage.length) * 100,
       userPct: (totals.user / usage.length) * 100
     }
+  }
+
+  getCpuUsage(processors) {
+    const usage = []
+
+    for(let i = 0; i < processors.length; i++) {
+      const processor = processors[i]
+
+      if(processor.total !== 0) {
+        const previousValue = this.previousProcessorValues[i];
+        usage.push(
+          previousValue
+            ? {
+              user: processor.user - previousValue.user,
+              kernel: processor.kernel - previousValue.kernel,
+              idle: processor.idle - previousValue.idle,
+              total: processor.total - previousValue.total,
+            }
+            : processor,
+        )
+      }
+    }
+
+    return usage
+  }
+
+  async collect() {
+    const cpu = await new Promise(resolve => chrome.system['cpu'].getInfo(resolve));
+
+    const processors = cpu.processors.map(({usage}) => usage);
+    const cpuDeltaUsage = this.getCpuUsage(processors);
+    this.previousProcessorValues = processors
+
+    return this.asPercentage(cpuDeltaUsage);
   }
 }
 
