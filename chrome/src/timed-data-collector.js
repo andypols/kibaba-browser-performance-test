@@ -24,22 +24,6 @@ function getCpuUsage(processors, processorsOld) {
   return usage
 }
 
-async function sendTimerData(cb, processorsOld = []) {
-  const cpu = await new Promise(resolve => {
-    chrome.system['cpu'].getInfo(resolve)
-  });
-
-  const processors = cpu.processors.map(({usage}) => usage)
-
-  const data = {
-    browser: await getBrowserName(),
-    cpu: getCpuUsage(processors, processorsOld)
-  }
-
-  cb(data)
-  setTimeout(() => sendTimerData(cb, processors), 1000);
-}
-
 export class TimedDataCollector {
   constructor(messageSender) {
     this.messageSender = messageSender;
@@ -49,8 +33,24 @@ export class TimedDataCollector {
     }
   }
 
+  async sendTimerData(cb, processorsOld = []) {
+    const cpu = await new Promise(resolve => {
+      chrome.system['cpu'].getInfo(resolve)
+    });
+
+    const processors = cpu.processors.map(({usage}) => usage)
+
+    const data = {
+      browser: await getBrowserName(),
+      cpu: getCpuUsage(processors, processorsOld)
+    }
+
+    cb(data)
+    setTimeout(() => this.sendTimerData(cb, processors), 1000);
+  }
+
   monitor() {
-    sendTimerData(({cpu, browser}) => {
+    this.sendTimerData(({cpu, browser}) => {
       const browserData = {
         '@timestamp': new Date().toISOString(),
         browser: browser,
