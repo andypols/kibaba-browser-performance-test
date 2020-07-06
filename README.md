@@ -2,9 +2,9 @@
 
 An experiment using [Kibana](https://www.elastic.co/kibana) to monitor Chrome browser performance as part of application testing. 
 
-![ext](./assets/dashboard.jpg)
+![ext](./assets/dashboard.png)
 
-It contains a dockerised version of Kibana 7.7.0 and a chrome browser extension that sends system cpu, javascript heap usage and websocket frequency data to Kibana.
+It contains a dockerised version of Kibana 7.7.0 and a chrome browser extension that sends system cpu, browser performance data and websocket frequency data to Kibana.
 
 The extension uses the [chrome devtools-protocol](https://chromedevtools.github.io/devtools-protocol/) to interact with the browsers debugger.
 
