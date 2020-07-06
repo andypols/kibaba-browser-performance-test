@@ -1,10 +1,9 @@
 import WebSocketStats from './stats/web-socket-stats';
 import {values, uniq} from 'lodash';
 
-const chromeTabWeAreMonitoring = parseInt(window.location.search.substring(1));
-
 export class EventDataCollector {
-  constructor(messageSender) {
+  constructor(messageSender, chromeTabWeAreMonitoring) {
+    this.chromeTabWeAreMonitoring = chromeTabWeAreMonitoring;
     this.eventHandlers = {
       'Network.webSocketFrameReceived': new WebSocketStats(messageSender)
     }
@@ -19,13 +18,13 @@ export class EventDataCollector {
     let eventTypes = uniq(values(this.eventHandlers).map(handler => handler.typeOfEventsToListenFor()));
 
     eventTypes.forEach((eventType => {
-      chrome.debugger.sendCommand({tabId: chromeTabWeAreMonitoring}, eventType);
+      chrome.debugger.sendCommand({tabId: this.chromeTabWeAreMonitoring}, eventType);
     }));
   }
 
   listenToRegisteredEvents() {
     chrome.debugger.onEvent.addListener(async(debuggeeId, message, params) => {
-      if(chromeTabWeAreMonitoring === debuggeeId.tabId) {
+      if(this.chromeTabWeAreMonitoring === debuggeeId.tabId) {
         if(this.eventHandlers[message]) {
           this.eventHandlers[message].send(params)
         } else {

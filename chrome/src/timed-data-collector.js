@@ -1,11 +1,16 @@
 import {keys} from 'lodash';
 import HeapStats from './stats/heap-stats';
 import SystemCpuStats from './stats/system-cpu-stats';
+import PerformanceStats from './stats/performance-stats';
 import {getBrowserName} from './get-settings';
 
 export class TimedDataCollector {
-  constructor(messageSender) {
+  chromeTabWeAreMonitoring;
+  constructor(messageSender, chromeTabWeAreMonitoring) {
     this.messageSender = messageSender;
+    this.chromeTabWeAreMonitoring = chromeTabWeAreMonitoring;
+    this.performanceStats = new PerformanceStats(chromeTabWeAreMonitoring);
+
     this.timerHandlers = {
       heap: new HeapStats(),
       cpu: new SystemCpuStats()
@@ -22,6 +27,9 @@ export class TimedDataCollector {
       for(const handler of keys(this.timerHandlers)) {
         timerData[handler] = await this.timerHandlers[handler].collect();
       }
+
+      let winder = await this.performanceStats.collect();
+      console.log({winder})
 
       this.messageSender.postMessage('browser-cpu', timerData);
     }, 1000);

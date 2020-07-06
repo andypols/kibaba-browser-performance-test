@@ -6,6 +6,8 @@ It contains a dockerised version of Kibana 7.7.0 and a chrome browser extension 
 
 The extension uses the [chrome devtools-protocol](https://chromedevtools.github.io/devtools-protocol/) to interact with the browsers debugger.
 
+
+
 ## Instructions
 
 ### 1. Spin up Kibana
