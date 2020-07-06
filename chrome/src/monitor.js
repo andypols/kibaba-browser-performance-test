@@ -6,13 +6,13 @@ import MonitorPage from './monitor-page.js'
 import {getBrowserName} from './get-settings';
 import HeapStats from './stats/heap-stats';
 import SystemCpuStats from './stats/system-cpu-stats';
-import {EventDataMonitor} from './event-data-monitor';
+import {EventDataCollector} from './event-data-collector';
 
 const messageSender = new MessageSender();
-const eventDataMonitor = new EventDataMonitor(messageSender);
+const eventDataCollector = new EventDataCollector(messageSender);
 
 window.addEventListener("load", function() {
-  eventDataMonitor.monitor();
+  eventDataCollector.monitor();
 });
 
 //

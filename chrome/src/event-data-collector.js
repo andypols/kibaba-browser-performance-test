@@ -3,7 +3,7 @@ import {values, uniq} from 'lodash';
 
 const chromeTabWeAreMonitoring = parseInt(window.location.search.substring(1));
 
-export class EventDataMonitor {
+export class EventDataCollector {
   constructor(messageSender) {
     this.eventHandlers = {
       'Network.webSocketFrameReceived': new WebSocketStats(messageSender)
