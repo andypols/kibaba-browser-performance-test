@@ -72,8 +72,9 @@ export default () => {
       <ul>
         <li>System CPU</li>
         <li>Websocket message frequency</li>
-        <li>Heap Usage (see <a href="https://developer.mozilla.org/en-US/docs/Web/API/Performance/memory">Performance.memory</a>)</li>
-        <li>...</li>
+        <li>Heap Usage</li>
+        <li>Dom Nodes</li>
+        <li>Layouts/second</li>
       </ul>
     </React.Fragment>
   );
