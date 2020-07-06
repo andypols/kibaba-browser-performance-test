@@ -91,7 +91,9 @@ export default class PerformanceStats {
      */
 
     return {
-      domNodes: metrics.get('Nodes')
+      domNodes: metrics.get('Nodes'),
+      jSHeapUsedSize: metrics.get('JSHeapUsedSize'),
+      jSHeapTotalSize: metrics.get('JSHeapTotalSize')
     };
   }
 

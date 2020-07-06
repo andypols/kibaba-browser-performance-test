@@ -1,5 +1,4 @@
-import {keys, find} from 'lodash';
-import HeapStats from './stats/heap-stats';
+import {keys} from 'lodash';
 import SystemCpuStats from './stats/system-cpu-stats';
 import PerformanceStats from './stats/performance-stats';
 import {getBrowserName} from './get-settings';
@@ -11,7 +10,6 @@ export class TimedDataCollector {
     this.oldScriptDuration = null
 
     this.timerHandlers = {
-      heap: new HeapStats(),
       cpu: new SystemCpuStats(),
       performance: new PerformanceStats(chromeTabWeAreMonitoring)
     }
