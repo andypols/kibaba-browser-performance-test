@@ -5,27 +5,28 @@ import {getBrowserName} from './get-settings';
 export class TimedDataCollector {
   constructor(messageSender) {
     this.messageSender = messageSender;
+    this.processors = [];
     this.timerHandlers = {
       heap: new HeapStats(),
       cpu: new SystemCpuStats()
     }
   }
 
-  getCpuUsage(processors, processorsOld) {
+  getCpuUsage(processors) {
     const usage = []
     for(let i = 0; i < processors.length; i++) {
       const processor = processors[i]
 
       if(processor.total === 0) continue
 
-      const processorOld = processorsOld[i]
+      const previousValue = this.processors[i];
       usage.push(
-        processorOld
+        previousValue
           ? {
-            user: processor.user - processorOld.user,
-            kernel: processor.kernel - processorOld.kernel,
-            idle: processor.idle - processorOld.idle,
-            total: processor.total - processorOld.total,
+            user: processor.user - previousValue.user,
+            kernel: processor.kernel - previousValue.kernel,
+            idle: processor.idle - previousValue.idle,
+            total: processor.total - previousValue.total,
           }
           : processor,
       )
@@ -34,7 +35,7 @@ export class TimedDataCollector {
   }
 
 
-  async sendTimerData(cb, processorsOld = []) {
+  async sendTimerData(cb) {
     const cpu = await new Promise(resolve => {
       chrome.system['cpu'].getInfo(resolve)
     });
@@ -43,11 +44,12 @@ export class TimedDataCollector {
 
     const data = {
       browser: await getBrowserName(),
-      cpu: this.getCpuUsage(processors, processorsOld)
+      cpu: this.getCpuUsage(processors)
     }
 
-    cb(data)
-    setTimeout(() => this.sendTimerData(cb, processors), 1000);
+    cb(data);
+    this.processors = processors;
+    setTimeout(() => this.sendTimerData(cb), 1000);
   }
 
   monitor() {
@@ -61,6 +63,5 @@ export class TimedDataCollector {
 
       this.messageSender.postMessage('browser-cpu', browserData);
     });
-
   }
 }
