@@ -26,6 +26,7 @@ export default class SystemCpuStats {
     for(let i = 0; i < processors.length; i++) {
       const processor = processors[i]
 
+      // data is cumulative, so have to calculate the difference.
       if(processor.total !== 0) {
         const previousValue = this.previousProcessorValues[i];
         usage.push(

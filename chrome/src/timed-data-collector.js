@@ -28,8 +28,8 @@ export class TimedDataCollector {
         timerData[handler] = await this.timerHandlers[handler].collect();
       }
 
-      let winder = await this.performanceStats.collect();
-      console.log({winder})
+      let performance = await this.performanceStats.collect();
+      console.log({performance})
 
       this.messageSender.postMessage('browser-cpu', timerData);
     }, 1000);
