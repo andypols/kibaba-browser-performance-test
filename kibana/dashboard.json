@@ -114,16 +114,16 @@
     {
       "id": "097f2990-c129-11ea-86ea-f18d0cc1354e",
       "type": "visualization",
-      "updated_at": "2020-07-08T14:40:58.536Z",
-      "version": "WzI4Niw1XQ==",
+      "updated_at": "2020-07-08T15:37:12.369Z",
+      "version": "WzMxMSw1XQ==",
       "attributes": {
         "title": "Average CPU %",
-        "visState": "{\"type\":\"goal\",\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"avg\",\"schema\":\"metric\",\"params\":{\"field\":\"performance.totalCpu\",\"customLabel\":\"Average CPU %\"}}],\"params\":{\"addTooltip\":true,\"addLegend\":false,\"isDisplayWarning\":false,\"type\":\"gauge\",\"gauge\":{\"verticalSplit\":false,\"autoExtend\":false,\"percentageMode\":true,\"gaugeType\":\"Arc\",\"gaugeStyle\":\"Full\",\"backStyle\":\"Full\",\"orientation\":\"vertical\",\"useRanges\":false,\"colorSchema\":\"Green to Red\",\"gaugeColorMode\":\"None\",\"colorsRange\":[{\"from\":0,\"to\":30},{\"from\":30,\"to\":50},{\"from\":50,\"to\":70},{\"from\":70,\"to\":90},{\"from\":90,\"to\":100}],\"invertColors\":false,\"labels\":{\"show\":true,\"color\":\"black\"},\"scale\":{\"show\":true,\"labels\":false,\"color\":\"rgba(105,112,125,0.2)\",\"width\":2},\"type\":\"meter\",\"style\":{\"bgFill\":\"rgba(105,112,125,0.2)\",\"bgColor\":false,\"labelColor\":false,\"subText\":\"\",\"fontSize\":60},\"alignment\":\"automatic\",\"outline\":false}},\"title\":\"Average CPU %\"}",
+        "visState": "{\"type\":\"goal\",\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"median\",\"schema\":\"metric\",\"params\":{\"field\":\"performance.totalCpu\",\"customLabel\":\"Median CPU %\"}}],\"params\":{\"addTooltip\":true,\"addLegend\":false,\"isDisplayWarning\":false,\"type\":\"gauge\",\"gauge\":{\"verticalSplit\":false,\"autoExtend\":false,\"percentageMode\":true,\"gaugeType\":\"Arc\",\"gaugeStyle\":\"Full\",\"backStyle\":\"Full\",\"orientation\":\"vertical\",\"useRanges\":false,\"colorSchema\":\"Green to Red\",\"gaugeColorMode\":\"None\",\"colorsRange\":[{\"from\":0,\"to\":30},{\"from\":30,\"to\":50},{\"from\":50,\"to\":70},{\"from\":70,\"to\":90},{\"from\":90,\"to\":100}],\"invertColors\":false,\"labels\":{\"show\":true,\"color\":\"black\"},\"scale\":{\"show\":true,\"labels\":false,\"color\":\"rgba(105,112,125,0.2)\",\"width\":2},\"type\":\"meter\",\"style\":{\"bgFill\":\"rgba(105,112,125,0.2)\",\"bgColor\":false,\"labelColor\":false,\"subText\":\"\",\"fontSize\":60},\"alignment\":\"automatic\",\"outline\":false}},\"title\":\"Average CPU %\"}",
         "uiStateJSON": "{}",
         "description": "",
         "version": 1,
         "kibanaSavedObjectMeta": {
-          "searchSourceJSON": "{\"query\":{\"query\":\"\",\"language\":\"kuery\"},\"filter\":[],\"indexRefName\":\"kibanaSavedObjectMeta.searchSourceJSON.index\"}"
+          "searchSourceJSON": "{\"query\":{\"language\":\"kuery\",\"query\":\"\"},\"filter\":[],\"indexRefName\":\"kibanaSavedObjectMeta.searchSourceJSON.index\"}"
         }
       },
       "references": [
