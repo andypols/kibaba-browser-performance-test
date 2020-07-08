@@ -69,15 +69,20 @@ export default class PerformanceStats {
       metrics.set(metric.name, value);
     }
 
+    const taskDuration = metrics.get('TaskDuration') * 100;
+    const scriptDuration = metrics.get('ScriptDuration') * 100;
+    const layoutDuration = metrics.get('LayoutDuration') * 100;
+    const recalcStyleDuration = metrics.get('RecalcStyleDuration') * 100;
     return {
       domNodes: metrics.get('Nodes'),
       jSHeapUsedSize: metrics.get('JSHeapUsedSize'),
       jSHeapTotalSize: metrics.get('JSHeapTotalSize'),
       layouts: metrics.get('LayoutCount'),
-      taskDuration: metrics.get('TaskDuration') * 100,
-      scriptDuration: metrics.get('ScriptDuration') * 100,
-      layoutDuration: metrics.get('LayoutDuration') * 100,
-      recalcStyleDuration: metrics.get('RecalcStyleDuration') * 100
+      taskDuration,
+      scriptDuration,
+      layoutDuration,
+      recalcStyleDuration,
+      totalCpu: taskDuration + scriptDuration + layoutDuration + recalcStyleDuration
     };
   }
 
