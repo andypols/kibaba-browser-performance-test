@@ -30,7 +30,7 @@ curl -X POST -H 'Content-Type: application/json' -H 'kbn-xsrf: true' -d @./kiban
 You can save any dashboard changes using:
 
 ```bash
-curl -X GET "localhost:5601/api/kibana/dashboards/export?dashboard=<dashboard-gid>" > your-dashboard.json
+curl -X GET "localhost:5601/api/kibana/dashboards/export?dashboard=213c9c90-a764-11ea-a03d-a10b2b67390e" > your-dashboard.json
 ``` 
 
 
